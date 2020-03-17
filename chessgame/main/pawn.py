@@ -18,34 +18,36 @@ class Pawn(Figure):
             is_occupied {None or COLOR} -- is new position occupied?
 
         Return:
-            True if move was made
-            False if move could not be made
+            0 if move was not made
+            1 if move has been made
+            2 if game has been won
         """
 
-        # white pawns
+        # white pawns (bottom start)
         if self.color is "w":
             # moving forward if not occupied
             if self.pos_y + 1 is new_y and self.pos_x is new_x and is_occupied is None:
-                return True
+                return 1
             # left diagonal hit
             if self.pos_x - 1 is new_x and self.pos_y + 1 is new_y and is_occupied is "b":
-                # TODO: Hit
-                return True
+                return 1
             # right diagonal hit
             if self.pos_x + 1 is new_x and self.pos_y + 1 is new_y and is_occupied is "b":
-                # TODO: Hit
-                return True
+                return 1
+            if self.pos_y + 1 is new_y and new_y > 8:
+                return 2
 
-        # black pawns
+        # black pawns (top start)
         else:
             # moving forward if not occupied
             if self.pos_y - 1 is new_y and self.pos_x is new_x and is_occupied is None:
-                return True
+                return 1
             # left diagonal hit
             if self.pos_x - 1 is new_x and self.pos_y - 1 is new_y and is_occupied is "w":
-                # TODO: Hit
-                return True
+                return 1
             # right diagonal hit
             if self.pos_x + 1 is new_x and self.pos_y - 1 is new_y and is_occupied is "w":
-                # TODO: Hit
-                return True
+                return 1
+            if self.pos_y - 1 is new_y and new_y < 1:
+                return 2
+        return 0
