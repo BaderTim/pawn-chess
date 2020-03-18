@@ -4,6 +4,7 @@ Game Manager
 
 from chessgame.main.figure import Figure
 from chessgame.main.pawn import Pawn
+import time
 
 
 class Game:
@@ -11,17 +12,18 @@ class Game:
     Game Manager
     """
 
-    def __init__(self, gamemode):
+    def __init__(self, game_mode):
         """
         Constructor
         Initiates game modes
         """
         self.end_game = False
-        self.gamemode = gamemode
+        self.game_mode = game_mode
         self.figures = None
-        if gamemode == "ki":
+        print("\n\n\n\n\n\n\n\n\n")
+        if game_mode == "ki":
             self.start_ai_game()
-        elif gamemode == "m":
+        elif game_mode == "m":
             self.start_multiplayer_game()
         else:
             print("Versuche gespeichertes Spiel zu laden...")
@@ -38,22 +40,30 @@ class Game:
         Argument: figures from saved game state
         """
         print("Starte mehrspieler Spiel...")
+        time.sleep(1)
         if self.figures is None:
+            self.figures = []
             print("Baue Spielfeld auf...")
+            time.sleep(1)
             for counter in range(8):
-                self.figures.append(Pawn(Figure(counter + 1, 0, "w")))
-                self.figures.append(Pawn(Figure(counter + 1, 8, "b")))
-        print("Weiß Beginnt, Schwarz gew...wir werdens sehen ;)\n")
+                self.figures.append(Pawn(counter + 1, 1, "w"))
+                self.figures.append(Pawn(counter + 1, 8, "b"))
+        print("\nWeiß Beginnt, Schwarz gew...wir werdens sehen ;)\n")
+        time.sleep(1)
         player = "Weiß"
         while not self.end_game:
             self.update_display()
-            user_input = input(f"Spieler {player} ist am Zug: ")
+            print(f"\nSpieler {player} ist am Zug.")
+            user_input = input("Eingabe: ")
             if self.get_figure(user_input) is None:
                 print("Falsche Eingabe. Bitte verwende das richtige Format (Bsp A4).\n")
             else:
                 figure = self.get_figure(user_input)
                 self.move_handler(figure, player, user_input)
-                player = "Schwarz"
+                if player == "Weiß":
+                    player = "Schwarz"
+                else:
+                    player = "Weiß"
     def start_ai_game(self):
         """
         Instantiates game against artificial intelligence:
@@ -64,10 +74,12 @@ class Game:
         Argument: figures from saved game state
         """
         print("Starte Spiel gegen KI...")
+        time.sleep(1)
         if self.figures is None:
             print("Baue Spielfeld auf...")
+            time.sleep(1)
             for counter in range(8):
-                self.figures.append(Pawn(Figure(counter + 1, 0, "w")))
+                self.figures.append(Pawn(Figure(counter + 1, 1, "w")))
                 self.figures.append(Pawn(Figure(counter + 1, 8, "b")))
         self.update_display()
         # TODO: Ai interaction
@@ -86,79 +98,89 @@ class Game:
             print("\nWas möchtest du tun?\nVorwärts(m), Links(l), Rechts(r)")
             move_input = input("Eingabe: ")
             
-            if player is "Weiß":
-                if move_input is "m":
+            if player == "Weiß":
+                if move_input == "m":
                     response = figure.move_to(figure.pos_x, figure.pos_y+1, 
                                               self.is_occupied(figure.pos_x, figure.pos_y+1))
-                    if response is 1:
+                    if response == 1:
                         self.check_for_hit(figure.pos_x, figure.pos_y+1, player)
+                        figure.pos_y += 1
                         break
-                    elif response is 0:
+                    elif response == 0:
                         print(f"Fehler: konnte {user_input} nicht nach vorne bewegen.")
-                    elif response is 2:
+                    elif response == 2:
                         self.win(player)
                         break
                         
-                elif move_input is "r":
+                elif move_input == "r":
                     response = figure.move_to(figure.pos_x+1, figure.pos_y+1,
                                               self.is_occupied(figure.pos_x+1, figure.pos_y+1))
-                    if response is 1:
+                    if response == 1:
                         self.check_for_hit(figure.pos_x+1, figure.pos_y+1, player)
+                        figure.pos_x += 1
+                        figure.pos_y += 1
                         break
-                    elif response is 0:
+                    elif response == 0:
                         print(f"Fehler: konnte {user_input} nicht nach rechts vorne bewegen.")
-                    elif response is 2:
+                    elif response == 2:
                         self.win(player)
                         break
 
-                elif move_input is "l":
+                elif move_input == "l":
                     response = figure.move_to(figure.pos_x-1, figure.pos_y+1,
                                               self.is_occupied(figure.pos_x-1, figure.pos_y+1))
-                    if response is 1:
+                    if response == 1:
                         self.check_for_hit(figure.pos_x-1, figure.pos_y+1, player)
+                        figure.pos_x -= 1
+                        figure.pos_y += 1
                         break
-                    elif response is 0:
+                    elif response == 0:
                         print(f"Fehler: konnte {user_input} nicht nach links vorne bewegen.")
-                    elif response is 2:
+                    elif response == 2:
                         self.win(player)
                         break
                 else:
                     print("Falsche Eingabe.\n")
                     
             else:
-                if move_input is "m":
+                if move_input == "m":
                     response = figure.move_to(figure.pos_x, figure.pos_y-1,
                                               self.is_occupied(figure.pos_x, figure.pos_y-1))
-                    if response is 1:
+                    if response == 1:
                         self.check_for_hit(figure.pos_x, figure.pos_y-1, player)
+                        figure.pos_y -= 1
                         break
-                    elif response is 0:
+                    elif response == 0:
                         print(f"Fehler: konnte {user_input} nicht nach vorne bewegen.")
-                    elif response is 2:
+                    elif response == 2:
                         self.win(player)
                         break
 
-                elif move_input is "r":
+                elif move_input == "r":
                     response = figure.move_to(figure.pos_x+1, figure.pos_y-1,
                                               self.is_occupied(figure.pos_x+1, figure.pos_y-1))
-                    if response is 1:
+                    if response == 1:
                         self.check_for_hit(figure.pos_x+1, figure.pos_y-1, player)
+                        figure.pos_x += 1
+                        figure.pos_y -= 1
                         break
-                    elif response is 0:
+                    elif response == 0:
                         print(f"Fehler: konnte {user_input} nicht nach rechts vorne bewegen.")
-                    elif response is 2:
+                    elif response == 2:
                         self.win(player)
                         break
 
-                elif move_input is "l":
+                elif move_input == "l":
                     response = figure.move_to(figure.pos_x-1, figure.pos_y-1,
                                               self.is_occupied(figure.pos_x-1, figure.pos_y-1))
-                    if response is 1:
+                    if response == 1:
                         self.check_for_hit(figure.pos_x-1, figure.pos_y-1, player)
+                        figure.pos_x -= 1
+                        figure.pos_y -= 1
                         break
-                    elif response is 0:
+                    elif response == 0:
                         print(f"Fehler: konnte {user_input} nicht nach links vorne bewegen.")
-                    elif response is 2:
+                    elif response == 2:
                         self.win(player)
                         break
                 else:
@@ -170,10 +192,12 @@ class Game:
         checks if it hit an enemy figure and removes it if so
         """
         figure = self.get_figure(f"{pos_x}::{pos_y}")
-        if color is "Weiß" and figure.color is "b":
+        if figure is None:
+            return
+        if color == "Weiß" and figure.color == "b":
             self.figures.remove(figure)
             print("Weißer Bauer schlägt schwarzen Bauer.")
-        elif color is "Schwarz" and figure.color is "w":
+        elif color == "Schwarz" and figure.color == "w":
             self.figures.remove(figure)
             print("Schwarzer Bauer schlägt weißen Bauer.")
 
@@ -212,32 +236,32 @@ class Game:
         if "::" in user_input:
             pos = user_input.split("::")
             for _, figure in enumerate(self.figures):
-                if figure.pos_x == pos[0] and figure.pos_y == int(pos[1]):
+                if figure.pos_x == int(pos[0]) and figure.pos_y == int(pos[1]):
                     return figure
         # user_input filter
-        pos = user_input.split("")
-        if len(pos) != 2 or not pos[1].isdigit() or int(pos[1]) > 8:
+        if len(user_input) != 2 or not user_input[1].isdigit() or int(user_input[1]) > 8:
             return None
-        if pos[0] == "A" or pos[0] == "a":
-            pos[0] = 1
-        elif pos[0] == "B" or pos[0] == "b":
-            pos[0] = 2
-        elif pos[0] == "C" or pos[0] == "c":
-            pos[0] = 3
-        elif pos[0] == "D" or pos[0] == "d":
-            pos[0] = 4
-        elif pos[0] == "E" or pos[0] == "e":
-            pos[0] = 5
-        elif pos[0] == "F" or pos[0] == "f":
-            pos[0] = 6
-        elif pos[0] == "G" or pos[0] == "g":
-            pos[0] = 7
-        elif pos[0] == "H" or pos[0] == "h":
-            pos[0] = 8
+        converted_pos_x = 1
+        if user_input[0] == "A" or user_input[0] == "a":
+            converted_pos_x = 1
+        elif user_input[0] == "B" or user_input[0] == "b":
+            converted_pos_x = 2
+        elif user_input[0] == "C" or user_input[0] == "c":
+            converted_pos_x = 3
+        elif user_input[0] == "D" or user_input[0] == "d":
+            converted_pos_x = 4
+        elif user_input[0] == "E" or user_input[0] == "e":
+            converted_pos_x = 5
+        elif user_input[0] == "F" or user_input[0] == "f":
+            converted_pos_x = 6
+        elif user_input[0] == "G" or user_input[0] == "g":
+            converted_pos_x = 7
+        elif user_input[0] == "H" or user_input[0] == "h":
+            converted_pos_x = 8
         else:
             return None
         for _, figure in enumerate(self.figures):
-            if figure.pos_x == pos[0] and figure.pos_y == int(pos[1]):
+            if figure.pos_x == converted_pos_x and figure.pos_y == int(user_input[1]):
                 return figure
 
 
@@ -260,9 +284,9 @@ class Game:
         # fills table array with figure positions
         for _, figure in enumerate(self.figures):
             # TODO: Transform 2D to 1D, the following line is corrupted
-            table[(8 - figure.pos_y) * 8 + figure.pos_x] = figure.color
+            table[63-figure.pos_y*8+figure.pos_x] = figure.color
 
-        table_output = "   A  B  C  D  E  F  G  H\n8  "
+        table_output = "\n\n\n   A  B  C  D  E  F  G  H\n8  "
         line_space = 0
         coordinate_system_y = 8
         # builds output string in form of a chess field
@@ -278,5 +302,5 @@ class Game:
                     table_output += f" {coordinate_system_y}\n"
                 coordinate_system_y -= 1
                 line_space = 0
-        table_output += "\n   A  B  C  D  E  F  G  H"
+        table_output += "   A  B  C  D  E  F  G  H"
         print(table_output)

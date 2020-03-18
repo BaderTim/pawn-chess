@@ -34,7 +34,7 @@ class Pawn(Figure):
             # right diagonal hit
             if self.pos_x + 1 is new_x and self.pos_y + 1 is new_y and is_occupied is "b":
                 return 1
-            if self.pos_y + 1 is new_y and new_y > 8:
+            if self.pos_y + 1 is new_y and new_y + 1 > 8:
                 return 2
 
         # black pawns (top start)
@@ -48,6 +48,6 @@ class Pawn(Figure):
             # right diagonal hit
             if self.pos_x + 1 is new_x and self.pos_y - 1 is new_y and is_occupied is "w":
                 return 1
-            if self.pos_y - 1 is new_y and new_y < 1:
+            if self.pos_y - 1 is new_y and new_y - 1 < 1:
                 return 2
         return 0
