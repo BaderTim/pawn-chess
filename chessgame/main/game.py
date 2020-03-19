@@ -2,8 +2,9 @@
 Game Manager
 """
 
-from chessgame.main.pawn import Pawn
 import time
+
+from chessgame.main.pawn import Pawn
 
 
 class Game:
@@ -98,10 +99,10 @@ class Game:
         while True:
             print("\nWas möchtest du tun?\nVorwärts(m), Links(l), Rechts(r), Zurück(b)")
             move_input = input("Eingabe: ")
-            
+            # Different movement schemes depending on color
             if player == "Weiß":
                 if move_input == "m":
-                    response = figure.move_to(figure.pos_x, figure.pos_y+1, 
+                    response = figure.move_to(figure.pos_x, figure.pos_y+1,
                                               self.is_occupied(figure.pos_x, figure.pos_y+1))
                     if response == 1:
                         self.check_for_hit(figure.pos_x, figure.pos_y+1, player)
@@ -112,7 +113,6 @@ class Game:
                     elif response == 2:
                         self.win(player)
                         break
-                        
                 elif move_input == "r":
                     response = figure.move_to(figure.pos_x+1, figure.pos_y+1,
                                               self.is_occupied(figure.pos_x+1, figure.pos_y+1))
@@ -126,7 +126,6 @@ class Game:
                     elif response == 2:
                         self.win(player)
                         break
-
                 elif move_input == "l":
                     response = figure.move_to(figure.pos_x-1, figure.pos_y+1,
                                               self.is_occupied(figure.pos_x-1, figure.pos_y+1))
@@ -142,7 +141,6 @@ class Game:
                         break
                 else:
                     print("Falsche Eingabe.\n")
-                    
             else:
                 if move_input == "m":
                     response = figure.move_to(figure.pos_x, figure.pos_y-1,
@@ -156,7 +154,6 @@ class Game:
                     elif response == 2:
                         self.win(player)
                         break
-
                 elif move_input == "r":
                     response = figure.move_to(figure.pos_x+1, figure.pos_y-1,
                                               self.is_occupied(figure.pos_x+1, figure.pos_y-1))
@@ -170,7 +167,6 @@ class Game:
                     elif response == 2:
                         self.win(player)
                         break
-
                 elif move_input == "l":
                     response = figure.move_to(figure.pos_x-1, figure.pos_y-1,
                                               self.is_occupied(figure.pos_x-1, figure.pos_y-1))
@@ -189,13 +185,11 @@ class Game:
 
             if move_input == "b":
                 return player
-
         # changes turn
         if player == "Weiß":
             return "Schwarz"
-        else:
-            return "Weiß"
-        
+        return "Weiß"
+
     def check_for_hit(self, pos_x, pos_y, color):
         """
         gets coordinates from figure which made the move
@@ -273,6 +267,7 @@ class Game:
         for _, figure in enumerate(self.figures):
             if figure.pos_x == converted_pos_x and figure.pos_y == int(user_input[1]):
                 return figure
+        return None
 
     def update_display(self):
         """
@@ -287,7 +282,7 @@ class Game:
         """
         table = []
         # generates table array --> 1D array to describe chess field
-        for counter in range(64):
+        for _ in range(64):
             table.append("_")
 
         # fills table array with figure positions

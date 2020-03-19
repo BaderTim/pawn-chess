@@ -1,3 +1,7 @@
+"""
+Main class
+"""
+
 from chessgame.main.game import Game
 
 
@@ -15,7 +19,7 @@ def main():
         if user_input == "n":
             print("\n\n\n # Neues Spiel # \nGegen Computer: ki\nMultiplayer: m\nSpiel laden: l\nZurück: b\n")
             game_mode = input("Eingabe: ")
-            if game_mode == "ki" or game_mode == "m" or game_mode == "l":
+            if game_mode in ("ki", "m", "l"):
                 Game(game_mode)
             elif game_mode == "x":
                 break

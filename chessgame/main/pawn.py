@@ -24,30 +24,30 @@ class Pawn(Figure):
         """
 
         # white pawns (bottom start)
-        if self.color is "w":
+        if self.color == "w":
             # moving forward if not occupied
-            if self.pos_y + 1 is new_y and self.pos_x is new_x and is_occupied is None:
+            if self.pos_y + 1 == new_y and self.pos_x == new_x and is_occupied is None:
                 return 1
             # left diagonal hit
-            if self.pos_x - 1 is new_x and self.pos_y + 1 is new_y and is_occupied is "b":
+            if self.pos_x - 1 == new_x and self.pos_y + 1 == new_y and is_occupied == "b":
                 return 1
             # right diagonal hit
-            if self.pos_x + 1 is new_x and self.pos_y + 1 is new_y and is_occupied is "b":
+            if self.pos_x + 1 == new_x and self.pos_y + 1 == new_y and is_occupied == "b":
                 return 1
-            if self.pos_y + 1 is new_y and new_y + 1 > 8:
+            if self.pos_y + 1 == new_y and new_y + 1 > 8:
                 return 2
 
         # black pawns (top start)
         else:
             # moving forward if not occupied
-            if self.pos_y - 1 is new_y and self.pos_x is new_x and is_occupied is None:
+            if self.pos_y - 1 == new_y and self.pos_x == new_x and is_occupied is None:
                 return 1
             # left diagonal hit
-            if self.pos_x - 1 is new_x and self.pos_y - 1 is new_y and is_occupied is "w":
+            if self.pos_x - 1 == new_x and self.pos_y - 1 == new_y and is_occupied == "w":
                 return 1
             # right diagonal hit
-            if self.pos_x + 1 is new_x and self.pos_y - 1 is new_y and is_occupied is "w":
+            if self.pos_x + 1 == new_x and self.pos_y - 1 == new_y and is_occupied == "w":
                 return 1
-            if self.pos_y - 1 is new_y and new_y - 1 < 1:
+            if self.pos_y - 1 == new_y and new_y - 1 < 1:
                 return 2
         return 0
