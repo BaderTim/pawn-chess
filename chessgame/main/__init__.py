@@ -1,7 +1,6 @@
 from chessgame.main.game import Game
 
 
-
 def main():
     """
     Main Menu

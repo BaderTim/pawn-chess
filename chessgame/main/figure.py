@@ -17,9 +17,6 @@ class Figure:
         self.pos_y = pos_y
         self.color = color
 
-
-
-
     def get_position(self):
         """Get position as tuple
 

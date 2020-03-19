@@ -2,7 +2,6 @@
 Game Manager
 """
 
-from chessgame.main.figure import Figure
 from chessgame.main.pawn import Pawn
 import time
 
@@ -55,15 +54,14 @@ class Game:
             self.update_display()
             print(f"\nSpieler {player} ist am Zug.")
             user_input = input("Eingabe: ")
-            if self.get_figure(user_input) is None:
+            figure = self.get_figure(user_input)
+            if figure is None:
                 print("Falsche Eingabe. Bitte verwende das richtige Format (Bsp A4).\n")
+            elif figure.color == "w" and player == "Schwarz"or figure.color == "b" and player == "Weiß":
+                print("Du kannst nicht die Figuren deines Gegners steuern.")
             else:
-                figure = self.get_figure(user_input)
-                self.move_handler(figure, player, user_input)
-                if player == "Weiß":
-                    player = "Schwarz"
-                else:
-                    player = "Weiß"
+                player = self.move_handler(figure, player, user_input)
+
     def start_ai_game(self):
         """
         Instantiates game against artificial intelligence:
@@ -79,8 +77,8 @@ class Game:
             print("Baue Spielfeld auf...")
             time.sleep(1)
             for counter in range(8):
-                self.figures.append(Pawn(Figure(counter + 1, 1, "w")))
-                self.figures.append(Pawn(Figure(counter + 1, 8, "b")))
+                self.figures.append(Pawn(counter + 1, 1, "w"))
+                self.figures.append(Pawn(counter + 1, 8, "b"))
         self.update_display()
         # TODO: Ai interaction
 
@@ -93,9 +91,12 @@ class Game:
 
         Function:
             handles movement of figures, e.g. wins and hits
+
+        Return:
+            player --> either white or black, changes after each turn
         """
         while True:
-            print("\nWas möchtest du tun?\nVorwärts(m), Links(l), Rechts(r)")
+            print("\nWas möchtest du tun?\nVorwärts(m), Links(l), Rechts(r), Zurück(b)")
             move_input = input("Eingabe: ")
             
             if player == "Weiß":
@@ -184,7 +185,16 @@ class Game:
                         self.win(player)
                         break
                 else:
-                    print("Falsche Eingabe.\n")      
+                    print("Falsche Eingabe.\n")
+
+            if move_input == "b":
+                return player
+
+        # changes turn
+        if player == "Weiß":
+            return "Schwarz"
+        else:
+            return "Weiß"
         
     def check_for_hit(self, pos_x, pos_y, color):
         """
@@ -241,7 +251,7 @@ class Game:
         # user_input filter
         if len(user_input) != 2 or not user_input[1].isdigit() or int(user_input[1]) > 8:
             return None
-        converted_pos_x = 1
+
         if user_input[0] == "A" or user_input[0] == "a":
             converted_pos_x = 1
         elif user_input[0] == "B" or user_input[0] == "b":
@@ -264,7 +274,6 @@ class Game:
             if figure.pos_x == converted_pos_x and figure.pos_y == int(user_input[1]):
                 return figure
 
-
     def update_display(self):
         """
         Updates Graphic Display
@@ -283,7 +292,7 @@ class Game:
 
         # fills table array with figure positions
         for _, figure in enumerate(self.figures):
-            # TODO: Transform 2D to 1D, the following line is corrupted
+            # transforms 2D array to 1D
             table[63-figure.pos_y*8+figure.pos_x] = figure.color
 
         table_output = "\n\n\n   A  B  C  D  E  F  G  H\n8  "
