@@ -22,7 +22,7 @@ class Game:
         self.game_mode = game_mode
         self.figures = None
         self.saved = False
-        print("\n\n\n\n\n\n\n\n\n")
+        print("\n\n")
         if game_mode == "ki":
             self.start_ai_game()
         elif game_mode == "m":
