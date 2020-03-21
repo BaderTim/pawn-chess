@@ -5,6 +5,7 @@ Game Manager
 import time
 
 from chessgame.main.pawn import Pawn
+from chessgame.main.save import Save
 
 
 class Game:
@@ -20,15 +21,30 @@ class Game:
         self.end_game = False
         self.game_mode = game_mode
         self.figures = None
+        self.saved = False
         print("\n\n\n\n\n\n\n\n\n")
         if game_mode == "ki":
             self.start_ai_game()
         elif game_mode == "m":
             self.start_multiplayer_game()
         else:
-            print("Versuche gespeichertes Spiel zu laden...")
-            # TODO: load saved game --> get game mode and figures, launch game
-            # self.figures = savedFigures...
+            while True:
+                print("Welche Speicherdatei möchtest du laden? (Zurück mit b)")
+                save_file = input("Eingabe: ")
+                if save_file == "b":
+                    return
+                save_object = Save(save_file=save_file, game_object=None)
+                save_load = save_object.load_game()
+                if save_load is not None:
+                    self.figures = save_load[1]
+                    if save_load[0] == "m":
+                        self.game_mode = "m"
+                        self.start_multiplayer_game()
+                        break
+                    else:
+                        self.game_mode = "ki"
+                        self.start_ai_game()
+                        break
 
     def start_multiplayer_game(self):
         """
@@ -40,28 +56,50 @@ class Game:
         Argument: figures from saved game state
         """
         print("Starte mehrspieler Spiel...")
-        time.sleep(1)
+        time.sleep(1.5)
         if self.figures is None:
             self.figures = []
-            print("Baue Spielfeld auf...")
-            time.sleep(1)
+            print("\nBaue Spielfeld auf...")
+            time.sleep(1.5)
             for counter in range(8):
                 self.figures.append(Pawn(counter + 1, 1, "w"))
                 self.figures.append(Pawn(counter + 1, 8, "b"))
         print("\nWeiß Beginnt, Schwarz gew...wir werdens sehen ;)\n")
-        time.sleep(1)
+        time.sleep(1.5)
         player = "Weiß"
         while not self.end_game:
             self.update_display()
-            print(f"\nSpieler {player} ist am Zug.")
+            print(f"\nSpieler {player} ist am Zug. (Auswahl A:1, Beenden x, Speichern s)")
             user_input = input("Eingabe: ")
-            figure = self.get_figure(user_input)
-            if figure is None:
-                print("Falsche Eingabe. Bitte verwende das richtige Format (Bsp A4).\n")
-            elif figure.color == "w" and player == "Schwarz"or figure.color == "b" and player == "Weiß":
-                print("Du kannst nicht die Figuren deines Gegners steuern.")
+            if user_input == "s":
+                Save(game_object=self, save_file=None)
+                self.saved = True
+                break
+            elif user_input == "x":
+                if self.saved:
+                    print("\nBeende mehrspieler Spiel...")
+                    time.sleep(1)
+                    self.end_game = True
+                else:
+                    print("Möchtest du vor dem beenden deinen Spielstand speichern?\nSpeichern 's', Beenden 'x'")
+                    save_input = input("Eingabe: ")
+                    while True:
+                        if save_input == "s":
+                            Save(game_object=self, save_file=None)
+                            self.saved = True
+                            break
+                        elif save_input == "x":
+                            self.end_game = True
+                            return
             else:
-                player = self.move_handler(figure, player, user_input)
+                figure = self.get_figure(user_input)
+                self.saved = False
+                if figure is None:
+                    print("Falsche Eingabe. Bitte verwende das richtige Format (Bsp A4).\n")
+                elif figure.color == "w" and player == "Schwarz"or figure.color == "b" and player == "Weiß":
+                    print("Du kannst nicht die Figuren deines Gegners steuern.")
+                else:
+                    player = self.move_handler(figure, player, user_input)
 
     def start_ai_game(self):
         """
