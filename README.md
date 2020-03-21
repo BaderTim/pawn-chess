@@ -1,14 +1,24 @@
 # Bauernschach
 
 Bauernschach Projektarbeit für Programmieren in Python.
-Mitglieder: Alessa B, Manuel, Xena, Tim
+  
+Abgabe: **08.04.2020** 23:59
 
-Abgabe: 08.04.2020 23:59
+## TODO:
+-Bauern Positioning  
+-Bauern können sich zu Beginn 2 Felder nach vorne bewegen  
+-KI Modus  
+-(Save File verschlüsseln)  
+-Tests  
+-Dokumentation  
 
-# TODO:
--Bauern Positioning
--Bauern können sich zu Beginn 2 Felder nach vorne bewegen
--KI Modus
-(-Save File verschlüsseln)
--Tests
--Dokumentation
+
+## GIT:
+Some basic Git commands are:
+```
+git pull --> updates files
+git status
+git add 
+git commit --> local 
+git push --> github
+```
