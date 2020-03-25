@@ -18,7 +18,7 @@ class Save:
                       --> tries to load if given
             game_object --> Game object to save
         """
-        self.path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "\saved_files\\"
+        self.path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "\\saved_files\\"
 
         # saves game_object data to new save file
         if save_file is None:
