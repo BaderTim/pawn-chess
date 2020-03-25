@@ -62,8 +62,8 @@ class Game:
             print("\nBaue Spielfeld auf...")
             time.sleep(1.5)
             for counter in range(8):
-                self.figures.append(Pawn(counter + 1, 1, "w"))
-                self.figures.append(Pawn(counter + 1, 8, "b"))
+                self.figures.append(Pawn(counter + 1, 2, "w"))
+                self.figures.append(Pawn(counter + 1, 7, "b"))
         print("\nWeiß Beginnt, Schwarz gew...wir werdens sehen ;)\n")
         time.sleep(1.5)
         player = "Weiß"
