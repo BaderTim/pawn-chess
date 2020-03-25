@@ -4,8 +4,8 @@ Game Manager
 
 import time
 
-from chessgame.main.pawn import Pawn
-from chessgame.main.save import Save
+from pawn import Pawn
+from save import Save
 
 
 class Game:

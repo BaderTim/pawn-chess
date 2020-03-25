@@ -1,7 +1,7 @@
 """Pawn figure for the chess game
 """
 
-from chessgame.main.figure import Figure
+from figure import Figure
 
 
 class Pawn(Figure):

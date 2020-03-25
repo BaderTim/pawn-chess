@@ -2,7 +2,7 @@
 save file class
 """
 
-from chessgame.main.pawn import Pawn
+from pawn import Pawn
 
 
 class Save:
