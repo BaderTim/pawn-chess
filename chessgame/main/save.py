@@ -3,6 +3,7 @@ save file class
 """
 
 from pawn import Pawn
+import os
 
 
 class Save:
@@ -17,7 +18,8 @@ class Save:
                       --> tries to load if given
             game_object --> Game object to save
         """
-        self.path = "../saved_files/"
+        self.path = os.path.abspath(os.getcwd()) + "\chessgame\saved_files\\"
+
         # saves game_object data to new save file
         if save_file is None:
             print("Unter welchem Namen möchtest du die Datei speichern?")
