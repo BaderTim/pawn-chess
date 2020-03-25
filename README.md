@@ -5,8 +5,6 @@ Bauernschach Projektarbeit für Programmieren in Python.
 Abgabe: **08.04.2020** 23:59
 
 ## TODO:
--Speichern für alle Systeme anpassen  
--Bauern Positioning  
 -Spielfeld Größe  
 -Bauern können sich zu Beginn 2 Felder nach vorne bewegen  
 -KI Modus  
