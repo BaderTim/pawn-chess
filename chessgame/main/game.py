@@ -69,7 +69,7 @@ class Game:
         player = "Weiß"
         while not self.end_game:
             self.update_display()
-            print(f"\nSpieler {player} ist am Zug. (Auswahl A:1, Beenden x, Speichern s)")
+            print(f"\nSpieler {player} ist am Zug. (Auswahl A1, Beenden x, Speichern s)")
             user_input = input("Eingabe: ")
             if user_input == "s":
                 Save(game_object=self, save_file=None)
