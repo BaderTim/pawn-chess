@@ -135,7 +135,14 @@ class Game:
             player --> either white or black, changes after each turn
         """
         while True:
-            print("\nWas möchtest du tun?\nVorwärts(m), Links(l), Rechts(r), Zurück(b)")
+            # Checks if the figure is in starting position
+            if (figure.pos_y == 2 and figure.color == "w") or (figure.pos_y == 7 and figure.color == "b"):
+                starting_position = True
+                print("\nWas möchtest du tun?\n2 Felder Vorwärts(m2), Vorwärts(m), Links(l), Rechts(r), Zurück(b)")
+            else:
+                starting_position = False
+                print("\nWas möchtest du tun?\nVorwärts(m), Links(l), Rechts(r), Zurück(b)")
+
             move_input = input("Eingabe: ")
             # Different movement schemes depending on color
             if player == "Weiß":
@@ -151,6 +158,27 @@ class Game:
                     elif response == 2:
                         self.win(player)
                         break
+                # Moves the figure 2 fields forward
+                elif move_input == "m2" and starting_position:
+                    # Checks if both fields are free, returns None or color of figure
+                    if self.is_occupied(figure.pos_x, figure.pos_y+2) is None and self.is_occupied(figure.pos_x, figure.pos_y+1) is None:
+                        both_occupied = None
+                    else:
+                        if self.is_occupied(figure.pos_x, figure.pos_y+2) is None:
+                            both_occupied = self.is_occupied(figure.pos_x, figure.pos_y+1)
+                        else:
+                            both_occupied = self.is_occupied(figure.pos_x, figure.pos_y+2)
+
+                    response = figure.move_to(figure.pos_x, figure.pos_y+2,
+                                              both_occupied)
+
+                    if response == 1:
+                        self.check_for_hit(figure.pos_x, figure.pos_y+2, player)
+                        figure.pos_y += 2
+                        break
+                    elif response == 0:
+                        print(f"Fehler: konnte {user_input} nicht zwei Felder nach vorne bewegen.")
+
                 elif move_input == "r":
                     response = figure.move_to(figure.pos_x+1, figure.pos_y+1,
                                               self.is_occupied(figure.pos_x+1, figure.pos_y+1))
@@ -192,6 +220,26 @@ class Game:
                     elif response == 2:
                         self.win(player)
                         break
+
+                elif move_input == "m2" and starting_position:
+                    if self.is_occupied(figure.pos_x, figure.pos_y-2) is None and self.is_occupied(figure.pos_x, figure.pos_y-1) is None:
+                        both_occupied = None
+                    else:
+                        if self.is_occupied(figure.pos_x, figure.pos_y-2) is None:
+                            both_occupied = self.is_occupied(figure.pos_x, figure.pos_y-1)
+                        else:
+                            both_occupied = self.is_occupied(figure.pos_x, figure.pos_y-2)
+
+                    response = figure.move_to(figure.pos_x, figure.pos_y-2,
+                                              both_occupied)
+
+                    if response == 1:
+                        self.check_for_hit(figure.pos_x, figure.pos_y-2, player)
+                        figure.pos_y -= 2
+                        break
+                    elif response == 0:
+                        print(f"Fehler: konnte {user_input} nicht zwei Felder nach vorne bewegen.")
+
                 elif move_input == "r":
                     response = figure.move_to(figure.pos_x+1, figure.pos_y-1,
                                               self.is_occupied(figure.pos_x+1, figure.pos_y-1))

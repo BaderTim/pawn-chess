@@ -7,7 +7,7 @@ from game import Game
 
 def main():
     """
-    Main Menu 
+    Main Menu
 
     User can select between different game modes
     or load a saved game
