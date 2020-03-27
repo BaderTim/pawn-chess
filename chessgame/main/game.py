@@ -144,133 +144,79 @@ class Game:
                 print("\nWas möchtest du tun?\nVorwärts(m), Links(l), Rechts(r), Zurück(b)")
 
             move_input = input("Eingabe: ")
-            # Different movement schemes depending on color
+
+            # Sets the right sign for the movement schemes
             if player == "Weiß":
-                if move_input == "m":
-                    response = figure.move_to(figure.pos_x, figure.pos_y+1,
-                                              self.is_occupied(figure.pos_x, figure.pos_y+1))
-                    if response == 1:
-                        self.check_for_hit(figure.pos_x, figure.pos_y+1, player)
-                        figure.pos_y += 1
-                        break
-                    elif response == 0:
-                        print(f"Fehler: konnte {user_input} nicht nach vorne bewegen.")
-                    elif response == 2:
-                        self.win(player)
-                        break
-                # Moves the figure 2 fields forward
-                elif move_input == "m2" and starting_position:
-                    # Checks if both fields are free, returns None or color of figure
-                    if self.is_occupied(figure.pos_x, figure.pos_y+2) is None and self.is_occupied(figure.pos_x, figure.pos_y+1) is None:
-                        both_occupied = None
-                    else:
-                        if self.is_occupied(figure.pos_x, figure.pos_y+2) is None:
-                            both_occupied = self.is_occupied(figure.pos_x, figure.pos_y+1)
-                        else:
-                            both_occupied = self.is_occupied(figure.pos_x, figure.pos_y+2)
-
-                    response = figure.move_to(figure.pos_x, figure.pos_y+2,
-                                              both_occupied)
-
-                    if response == 1:
-                        self.check_for_hit(figure.pos_x, figure.pos_y+2, player)
-                        figure.pos_y += 2
-                        break
-                    elif response == 0:
-                        print(f"Fehler: konnte {user_input} nicht zwei Felder nach vorne bewegen.")
-
-                elif move_input == "r":
-                    response = figure.move_to(figure.pos_x+1, figure.pos_y+1,
-                                              self.is_occupied(figure.pos_x+1, figure.pos_y+1))
-                    if response == 1:
-                        self.check_for_hit(figure.pos_x+1, figure.pos_y+1, player)
-                        figure.pos_x += 1
-                        figure.pos_y += 1
-                        break
-                    elif response == 0:
-                        print(f"Fehler: konnte {user_input} nicht nach rechts vorne bewegen.")
-                    elif response == 2:
-                        self.win(player)
-                        break
-                elif move_input == "l":
-                    response = figure.move_to(figure.pos_x-1, figure.pos_y+1,
-                                              self.is_occupied(figure.pos_x-1, figure.pos_y+1))
-                    if response == 1:
-                        self.check_for_hit(figure.pos_x-1, figure.pos_y+1, player)
-                        figure.pos_x -= 1
-                        figure.pos_y += 1
-                        break
-                    elif response == 0:
-                        print(f"Fehler: konnte {user_input} nicht nach links vorne bewegen.")
-                    elif response == 2:
-                        self.win(player)
-                        break
-                else:
-                    print("Falsche Eingabe.\n")
+                sign = 1
             else:
-                if move_input == "m":
-                    response = figure.move_to(figure.pos_x, figure.pos_y-1,
-                                              self.is_occupied(figure.pos_x, figure.pos_y-1))
-                    if response == 1:
-                        self.check_for_hit(figure.pos_x, figure.pos_y-1, player)
-                        figure.pos_y -= 1
-                        break
-                    elif response == 0:
-                        print(f"Fehler: konnte {user_input} nicht nach vorne bewegen.")
-                    elif response == 2:
-                        self.win(player)
-                        break
+                sign = -1
 
-                elif move_input == "m2" and starting_position:
-                    if self.is_occupied(figure.pos_x, figure.pos_y-2) is None and self.is_occupied(figure.pos_x, figure.pos_y-1) is None:
-                        both_occupied = None
-                    else:
-                        if self.is_occupied(figure.pos_x, figure.pos_y-2) is None:
-                            both_occupied = self.is_occupied(figure.pos_x, figure.pos_y-1)
-                        else:
-                            both_occupied = self.is_occupied(figure.pos_x, figure.pos_y-2)
+            # Different movement schemes depending on color
+            if move_input == "m":
+                response = figure.move_to(figure.pos_x, figure.pos_y+1*sign,
+                                          self.is_occupied(figure.pos_x, figure.pos_y+1*sign))
+                if response == 1:
+                    self.check_for_hit(figure.pos_x, figure.pos_y+1*sign, player)
+                    figure.pos_y += 1*sign
+                    break
+                elif response == 0:
+                    print(f"Fehler: konnte {user_input} nicht nach vorne bewegen.")
+                elif response == 2:
+                    self.win(player)
+                    break
 
-                    response = figure.move_to(figure.pos_x, figure.pos_y-2,
-                                              both_occupied)
-
-                    if response == 1:
-                        self.check_for_hit(figure.pos_x, figure.pos_y-2, player)
-                        figure.pos_y -= 2
-                        break
-                    elif response == 0:
-                        print(f"Fehler: konnte {user_input} nicht zwei Felder nach vorne bewegen.")
-
-                elif move_input == "r":
-                    response = figure.move_to(figure.pos_x+1, figure.pos_y-1,
-                                              self.is_occupied(figure.pos_x+1, figure.pos_y-1))
-                    if response == 1:
-                        self.check_for_hit(figure.pos_x+1, figure.pos_y-1, player)
-                        figure.pos_x += 1
-                        figure.pos_y -= 1
-                        break
-                    elif response == 0:
-                        print(f"Fehler: konnte {user_input} nicht nach rechts vorne bewegen.")
-                    elif response == 2:
-                        self.win(player)
-                        break
-                elif move_input == "l":
-                    response = figure.move_to(figure.pos_x-1, figure.pos_y-1,
-                                              self.is_occupied(figure.pos_x-1, figure.pos_y-1))
-                    if response == 1:
-                        self.check_for_hit(figure.pos_x-1, figure.pos_y-1, player)
-                        figure.pos_x -= 1
-                        figure.pos_y -= 1
-                        break
-                    elif response == 0:
-                        print(f"Fehler: konnte {user_input} nicht nach links vorne bewegen.")
-                    elif response == 2:
-                        self.win(player)
-                        break
+            # Moves figure 2 fields forward
+            elif move_input == "m2" and starting_position:
+                # Checks if both fields are free, returns None or color of figure
+                if self.is_occupied(figure.pos_x, figure.pos_y+2*sign) is None and self.is_occupied(figure.pos_x, figure.pos_y+1*sign) is None:
+                    both_occupied = None
                 else:
-                    print("Falsche Eingabe.\n")
+                    if self.is_occupied(figure.pos_x, figure.pos_y+2*sign) is None:
+                        both_occupied = self.is_occupied(figure.pos_x, figure.pos_y+1*sign)
+                    else:
+                        both_occupied = self.is_occupied(figure.pos_x, figure.pos_y+2*sign)
+
+                response = figure.move_to(figure.pos_x, figure.pos_y+2*sign, both_occupied)
+                if response == 1:
+                    self.check_for_hit(figure.pos_x, figure.pos_y+2*sign, player)
+                    figure.pos_y += 2*sign
+                    break
+                elif response == 0:
+                    print(f"Fehler: konnte {user_input} nicht zwei Felder nach vorne bewegen.")
+
+            elif move_input == "r":
+                response = figure.move_to(figure.pos_x+1, figure.pos_y+1*sign,
+                                          self.is_occupied(figure.pos_x+1, figure.pos_y+1*sign))
+                if response == 1:
+                    self.check_for_hit(figure.pos_x+1, figure.pos_y+1*sign, player)
+                    figure.pos_x += 1
+                    figure.pos_y += 1*sign
+                    break
+                elif response == 0:
+                    print(f"Fehler: konnte {user_input} nicht nach rechts vorne bewegen.")
+                elif response == 2:
+                    self.win(player)
+                    break
+
+            elif move_input == "l":
+                response = figure.move_to(figure.pos_x-1, figure.pos_y+1*sign,
+                                          self.is_occupied(figure.pos_x-1, figure.pos_y+1*sign))
+                if response == 1:
+                    self.check_for_hit(figure.pos_x-1, figure.pos_y+1*sign, player)
+                    figure.pos_x -= 1
+                    figure.pos_y += 1*sign
+                    break
+                elif response == 0:
+                    print(f"Fehler: konnte {user_input} nicht nach links vorne bewegen.")
+                elif response == 2:
+                    self.win(player)
+                    break
+            else:
+                print("Falsche Eingabe.\n")
 
             if move_input == "b":
                 return player
+
         # changes turn
         if player == "Weiß":
             return "Schwarz"
