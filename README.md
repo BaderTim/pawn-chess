@@ -6,7 +6,7 @@ Abgabe: **08.04.2020** 23:59
 
 ## TODO:
 -Spielfeld Größe  
--Bauern können sich zu Beginn 2 Felder nach vorne bewegen  
+-<del>Bauern können sich zu Beginn 2 Felder nach vorne bewegen</del>
 -KI Modus  
 -(Save File verschlüsseln)  
 -Tests  
