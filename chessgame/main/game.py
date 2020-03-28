@@ -146,12 +146,9 @@ class Game:
 
         while True:
             # Checks if the figure is in starting position
-            if (figure.pos_y == 2 and figure.color == COLOR_WHITE) or (figure.pos_y == 7 and figure.color == COLOR_BLACK):
-                starting_position = True
-                print("\nWas möchtest du tun?\n2 Felder Vorwärts(m2), Vorwärts(m), Links(l), Rechts(r), Zurück(b)")
-            else:
-                starting_position = False
-                print("\nWas möchtest du tun?\nVorwärts(m), Links(l), Rechts(r), Zurück(b)")
+            starting_position = (figure.pos_y == 2 and figure.color == COLOR_WHITE) or (figure.pos_y == 7 and figure.color == COLOR_BLACK)
+
+            self.print_move_options(starting_position)
 
             move_input = input("Eingabe: ").lower()
 
@@ -193,10 +190,7 @@ class Game:
             else:
                 print("Falsche Eingabe.\n")
 
-        # changes turn
-        if player == "Weiß":
-            return "Schwarz"
-        return "Weiß"
+        return self.toggle_player(player)
 
     def check_for_hit(self, pos_x, pos_y, color):
         """
@@ -304,3 +298,23 @@ class Game:
                 line_space = 0
         table_output += "   A  B  C  D  E  F  G  H"
         print(table_output)
+
+    @staticmethod
+    def toggle_player(player):
+        """
+        changes turn
+        """
+        if player == "Weiß":
+            return "Schwarz"
+        return "Weiß"
+
+    @staticmethod
+    def print_move_options(starting_position):
+        """
+        output of move options
+        """
+        text = "\nWas möchtest du tun?\n"
+        if starting_position:
+            text += "2 Felder Vorwärts(m2), "
+        text += "Vorwärts(m), Links(l), Rechts(r), Zurück(b)"
+        print(text)
