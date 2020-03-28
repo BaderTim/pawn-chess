@@ -1,7 +1,9 @@
-"""Pawn figure for the chess game
 """
-
+Pawn figure for the chess game
+"""
 from figure import Figure
+from consts import COLOR_BLACK
+from consts import COLOR_WHITE
 
 
 class Pawn(Figure):
@@ -24,14 +26,14 @@ class Pawn(Figure):
         """
 
 
-        if self.color == "w":
+        if self.color == COLOR_WHITE:
             sign = 1
             finishing_row = 8
-            opponent = "b"
+            opponent = COLOR_BLACK
         else:
             sign = -1
             finishing_row = 1
-            opponent = "w"
+            opponent = COLOR_WHITE
 
         # moving forward if not occupied
         if self.pos_y + 1 * sign == new_y and new_y == finishing_row and is_occupied is None:      #Moved up here to fix win conditions

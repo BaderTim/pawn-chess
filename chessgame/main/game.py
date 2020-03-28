@@ -6,6 +6,8 @@ import time
 
 from pawn import Pawn
 from save import Save
+from consts import COLOR_BLACK
+from consts import COLOR_WHITE
 
 
 class Game:
@@ -62,8 +64,8 @@ class Game:
             print("\nBaue Spielfeld auf...")
             time.sleep(1.5)
             for counter in range(8):
-                self.figures.append(Pawn(counter + 1, 2, "w"))
-                self.figures.append(Pawn(counter + 1, 7, "b"))
+                self.figures.append(Pawn(counter + 1, 2, COLOR_WHITE))
+                self.figures.append(Pawn(counter + 1, 7, COLOR_BLACK))
         print("\nWeiß Beginnt, Schwarz gew...wir werdens sehen ;)\n")
         time.sleep(1.5)
         player = "Weiß"
@@ -96,7 +98,7 @@ class Game:
                 self.saved = False
                 if figure is None:
                     print("Falsche Eingabe. Bitte verwende das richtige Format (Bsp A4).\n")
-                elif figure.color == "w" and player == "Schwarz" or figure.color == "b" and player == "Weiß":
+                elif figure.color == COLOR_WHITE and player == "Schwarz" or figure.color == COLOR_BLACK and player == "Weiß":
                     print("Du kannst nicht die Figuren deines Gegners steuern.")
                 else:
                     player = self.move_handler(figure, player, user_input)
@@ -116,8 +118,8 @@ class Game:
             print("Baue Spielfeld auf...")
             time.sleep(1)
             for counter in range(8):
-                self.figures.append(Pawn(counter + 1, 1, "w"))
-                self.figures.append(Pawn(counter + 1, 8, "b"))
+                self.figures.append(Pawn(counter + 1, 1, COLOR_WHITE))
+                self.figures.append(Pawn(counter + 1, 8, COLOR_BLACK))
         self.update_display()
         # TODO: Ai interaction
 
@@ -144,7 +146,7 @@ class Game:
 
         while True:
             # Checks if the figure is in starting position
-            if (figure.pos_y == 2 and figure.color == "w") or (figure.pos_y == 7 and figure.color == "b"):
+            if (figure.pos_y == 2 and figure.color == COLOR_WHITE) or (figure.pos_y == 7 and figure.color == COLOR_BLACK):
                 starting_position = True
                 print("\nWas möchtest du tun?\n2 Felder Vorwärts(m2), Vorwärts(m), Links(l), Rechts(r), Zurück(b)")
             else:
@@ -204,10 +206,10 @@ class Game:
         figure = self.get_figure(f"{pos_x}::{pos_y}")
         if figure is None:
             return
-        if color == "Weiß" and figure.color == "b":
+        if color == "Weiß" and figure.color == COLOR_BLACK:
             self.figures.remove(figure)
             print("Weißer Bauer schlägt schwarzen Bauer.")
-        elif color == "Schwarz" and figure.color == "w":
+        elif color == "Schwarz" and figure.color == COLOR_WHITE:
             self.figures.remove(figure)
             print("Schwarzer Bauer schlägt weißen Bauer.")
 
