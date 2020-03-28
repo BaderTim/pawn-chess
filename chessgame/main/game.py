@@ -252,24 +252,12 @@ class Game:
         if len(user_input) != 2 or not user_input[1].isdigit() or int(user_input[1]) > 8:
             return None
 
-        if user_input[0] == "A" or user_input[0] == "a":
-            converted_pos_x = 1
-        elif user_input[0] == "B" or user_input[0] == "b":
-            converted_pos_x = 2
-        elif user_input[0] == "C" or user_input[0] == "c":
-            converted_pos_x = 3
-        elif user_input[0] == "D" or user_input[0] == "d":
-            converted_pos_x = 4
-        elif user_input[0] == "E" or user_input[0] == "e":
-            converted_pos_x = 5
-        elif user_input[0] == "F" or user_input[0] == "f":
-            converted_pos_x = 6
-        elif user_input[0] == "G" or user_input[0] == "g":
-            converted_pos_x = 7
-        elif user_input[0] == "H" or user_input[0] == "h":
-            converted_pos_x = 8
-        else:
+        # uses ASCII table to convert Character to expected number
+        converted_pos_x = ord(user_input[0].upper()) - ord("A") + 1
+
+        if converted_pos_x < 1 or converted_pos_x > 8:
             return None
+
         for _, figure in enumerate(self.figures):
             if figure.pos_x == converted_pos_x and figure.pos_y == int(user_input[1]):
                 return figure
