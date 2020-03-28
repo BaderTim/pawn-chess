@@ -23,37 +23,28 @@ class Pawn(Figure):
             2 if game has been won
         """
 
-        # white pawns (bottom start)
-        if self.color == "w":
-            # moving forward if not occupied
-            if self.pos_y + 1 == new_y and new_y == 8 and is_occupied is None:      #Moved up here to fix win conditions
-                return 2
-            if self.pos_y + 1 == new_y and self.pos_x == new_x and is_occupied is None:
-                return 1
-            # moving 2 fields forward if not occupied
-            if self.pos_y + 2 == new_y and self.pos_x == new_x and is_occupied is None:
-                return 1
-            # left diagonal hit
-            if self.pos_x - 1 == new_x and self.pos_y + 1 == new_y and is_occupied == "b":
-                return 1
-            # right diagonal hit
-            if self.pos_x + 1 == new_x and self.pos_y + 1 == new_y and is_occupied == "b":
-                return 1
 
-        # black pawns (top start)
+        if self.color == "w":
+            sign = 1
+            finishing_row = 8
+            opponent = "b"
         else:
-            # moving forward if not occupied
-            if self.pos_y - 1 == new_y and new_y == 1 and is_occupied is None:      #Moved up here to fix win conditions
-                return 2
-            if self.pos_y - 1 == new_y and self.pos_x == new_x and is_occupied is None:
-                return 1
-            # moving 2 fields forward if not occupied
-            if self.pos_y - 2 == new_y and self.pos_x == new_x and is_occupied is None:
-                return 1
-            # left diagonal hit
-            if self.pos_x - 1 == new_x and self.pos_y - 1 == new_y and is_occupied == "w":
-                return 1
-            # right diagonal hit
-            if self.pos_x + 1 == new_x and self.pos_y - 1 == new_y and is_occupied == "w":
-                return 1
+            sign = -1
+            finishing_row = 1
+            opponent = "w"
+
+        # moving forward if not occupied
+        if self.pos_y + 1 * sign == new_y and new_y == finishing_row and is_occupied is None:      #Moved up here to fix win conditions
+            return 2
+        if self.pos_y + 1 * sign == new_y and self.pos_x == new_x and is_occupied is None:
+            return 1
+        # moving 2 fields forward if not occupied
+        if self.pos_y + 2 * sign == new_y and self.pos_x == new_x and is_occupied is None:
+            return 1
+        # left diagonal hit
+        if self.pos_x - 1 == new_x and self.pos_y + 1 * sign == new_y and is_occupied == opponent:
+            return 1
+        # right diagonal hit
+        if self.pos_x + 1 == new_x and self.pos_y + 1 * sign == new_y and is_occupied == opponent:
+            return 1
         return 0

@@ -55,7 +55,7 @@ class Game:
 
         Argument: figures from saved game state
         """
-        print("Starte mehrspieler Spiel...")
+        print("Starte Mehrspieler Spiel...")
         time.sleep(1.5)
         if self.figures is None:
             self.figures = []
@@ -77,7 +77,7 @@ class Game:
                 break
             elif user_input == "x":
                 if self.saved:
-                    print("\nBeende mehrspieler Spiel...")
+                    print("\nBeende Mehrspieler Spiel...")
                     time.sleep(1)
                     self.end_game = True
                 else:
@@ -96,7 +96,7 @@ class Game:
                 self.saved = False
                 if figure is None:
                     print("Falsche Eingabe. Bitte verwende das richtige Format (Bsp A4).\n")
-                elif figure.color == "w" and player == "Schwarz"or figure.color == "b" and player == "Weiß":
+                elif figure.color == "w" and player == "Schwarz" or figure.color == "b" and player == "Weiß":
                     print("Du kannst nicht die Figuren deines Gegners steuern.")
                 else:
                     player = self.move_handler(figure, player, user_input)
