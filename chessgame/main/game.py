@@ -82,7 +82,7 @@ class Game:
                     self.end_game = True
                 else:
                     print("Möchtest du vor dem beenden deinen Spielstand speichern?\nSpeichern 's', Beenden 'x'")
-                    save_input = input("Eingabe: ")
+                    save_input = input("Eingabe: ").lower()
                     while True:
                         if save_input == consts.ACT_SAVE:
                             Save(game_object=self, save_file=None)
@@ -176,7 +176,7 @@ class Game:
                         figure.pos_y = new_y
                         break
                     elif response == 0:
-                        print(f"Fehler: Zug {move_input} für {user_input} konnte nicht durgeführt werden.")
+                        print(f"Fehler: Zug {move_input} für {user_input} konnte nicht durchgeführt werden.")
                     elif response == 2:
                         self.win(player)
                         break
