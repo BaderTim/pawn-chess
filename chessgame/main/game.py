@@ -3,11 +3,9 @@ Game Manager
 """
 
 import time
-
+import consts
 from pawn import Pawn
 from save import Save
-from consts import COLOR_BLACK
-from consts import COLOR_WHITE
 
 
 class Game:
@@ -25,26 +23,26 @@ class Game:
         self.figures = None
         self.saved = False
         print("\n\n")
-        if game_mode == "ki":
+        if game_mode == consts.MODE_KI:
             self.start_ai_game()
-        elif game_mode == "m":
+        elif game_mode == consts.MODE_MULTI:
             self.start_multiplayer_game()
         else:
             while True:
                 print("Welche Speicherdatei möchtest du laden? (Zurück mit b)")
                 save_file = input("Eingabe: ")
-                if save_file == "b":
+                if save_file == consts.ACT_BACK:
                     return
                 save_object = Save(save_file=save_file, game_object=None)
                 save_load = save_object.load_game()
                 if save_load is not None:
                     self.figures = save_load[1]
-                    if save_load[0] == "m":
-                        self.game_mode = "m"
+                    if save_load[0] == consts.MODE_MULTI:
+                        self.game_mode = consts.MODE_MULTI
                         self.start_multiplayer_game()
                         break
                     else:
-                        self.game_mode = "ki"
+                        self.game_mode = consts.MODE_KI
                         self.start_ai_game()
                         break
 
@@ -64,20 +62,20 @@ class Game:
             print("\nBaue Spielfeld auf...")
             time.sleep(1.5)
             for counter in range(8):
-                self.figures.append(Pawn(counter + 1, 2, COLOR_WHITE))
-                self.figures.append(Pawn(counter + 1, 7, COLOR_BLACK))
+                self.figures.append(Pawn(counter + 1, 2, consts.COLOR_WHITE))
+                self.figures.append(Pawn(counter + 1, 7, consts.COLOR_BLACK))
         print("\nWeiß Beginnt, Schwarz gew...wir werdens sehen ;)\n")
         time.sleep(1.5)
-        player = "Weiß"
+        player = consts.PLAYER_WHITE
         while not self.end_game:
             self.update_display()
             print(f"\nSpieler {player} ist am Zug. (Auswahl A1, Beenden x, Speichern s)")
             user_input = input("Eingabe: ")
-            if user_input == "s":
+            if user_input == consts.ACT_SAVE:
                 Save(game_object=self, save_file=None)
                 self.saved = True
                 break
-            elif user_input == "x":
+            elif user_input == consts.ACT_STOP:
                 if self.saved:
                     print("\nBeende mehrspieler Spiel...")
                     time.sleep(1)
@@ -86,11 +84,11 @@ class Game:
                     print("Möchtest du vor dem beenden deinen Spielstand speichern?\nSpeichern 's', Beenden 'x'")
                     save_input = input("Eingabe: ")
                     while True:
-                        if save_input == "s":
+                        if save_input == consts.ACT_SAVE:
                             Save(game_object=self, save_file=None)
                             self.saved = True
                             break
-                        elif save_input == "x":
+                        elif save_input == consts.ACT_STOP:
                             self.end_game = True
                             return
             else:
@@ -98,7 +96,8 @@ class Game:
                 self.saved = False
                 if figure is None:
                     print("Falsche Eingabe. Bitte verwende das richtige Format (Bsp A4).\n")
-                elif figure.color == COLOR_WHITE and player == "Schwarz" or figure.color == COLOR_BLACK and player == "Weiß":
+                elif (figure.color == consts.COLOR_WHITE and player == consts.PLAYER_BLACK or
+                      figure.color == consts.COLOR_BLACK and player == consts.PLAYER_WHITE):
                     print("Du kannst nicht die Figuren deines Gegners steuern.")
                 else:
                     player = self.move_handler(figure, player, user_input)
@@ -118,8 +117,8 @@ class Game:
             print("Baue Spielfeld auf...")
             time.sleep(1)
             for counter in range(8):
-                self.figures.append(Pawn(counter + 1, 1, COLOR_WHITE))
-                self.figures.append(Pawn(counter + 1, 8, COLOR_BLACK))
+                self.figures.append(Pawn(counter + 1, 1, consts.COLOR_WHITE))
+                self.figures.append(Pawn(counter + 1, 8, consts.COLOR_BLACK))
         self.update_display()
         # TODO: Ai interaction
 
@@ -138,36 +137,37 @@ class Game:
         """
 
         move_vector = {
-            "m"  : {"x" :  0, "y" : 1},
-            "m2" : {"x" :  0, "y" : 2},
-            "l"  : {"x" : -1, "y" : 1},
-            "r"  : {"x" :  1, "y" : 1}
+            consts.MV_FWD1  : {consts.COORD_X :  0, consts.COORD_Y : 1},
+            consts.MV_FWD2  : {consts.COORD_X :  0, consts.COORD_Y : 2},
+            consts.MV_LEFT  : {consts.COORD_X : -1, consts.COORD_Y : 1},
+            consts.MV_RIGHT : {consts.COORD_X :  1, consts.COORD_Y : 1}
         }
 
         while True:
             # Checks if the figure is in starting position
-            starting_position = (figure.pos_y == 2 and figure.color == COLOR_WHITE) or (figure.pos_y == 7 and figure.color == COLOR_BLACK)
+            starting_position = (figure.pos_y == 2 and figure.color == consts.COLOR_WHITE) or (figure.pos_y == 7 and figure.color == consts.COLOR_BLACK)
 
             self.print_move_options(starting_position)
 
             move_input = input("Eingabe: ").lower()
 
             # Sets the right sign for the movement schemes
-            if player == "Weiß":
+            if player == consts.PLAYER_WHITE:
                 sign = 1
             else:
                 sign = -1
 
             if move_input in move_vector:
-                new_x = figure.pos_x + move_vector[move_input]["x"]
-                new_y = figure.pos_y + move_vector[move_input]["y"] * sign      # *sign -> right direction for black or white
+                new_x = figure.pos_x + move_vector[move_input][consts.COORD_X]
+                new_y = figure.pos_y + move_vector[move_input][consts.COORD_Y] * sign      # *sign -> right direction for black or white
 
                 target_occupied = self.is_occupied(new_x, new_y)
 
-                if move_input == "m2" and target_occupied is None:
-                    target_occupied = self.is_occupied(figure.pos_x + move_vector["m"]["x"], figure.pos_y + move_vector["m"]["y"] * sign)
+                if move_input == consts.MV_FWD2 and target_occupied is None:
+                    target_occupied = self.is_occupied(figure.pos_x + move_vector[consts.MV_FWD1][consts.COORD_X],
+                                                       figure.pos_y + move_vector[consts.MV_FWD1][consts.COORD_Y] * sign)
 
-                if (move_input == "m2" and starting_position) or move_input != "m2":
+                if (move_input == consts.MV_FWD2 and starting_position) or move_input != consts.MV_FWD2:
                     response = figure.move_to(new_x, new_y, target_occupied)
 
                     if response == 1:
@@ -184,7 +184,7 @@ class Game:
                 else:
                     print("m2 nicht zulässig.\n")
 
-            elif move_input == "b":
+            elif move_input == consts.ACT_BACK:
                 return player
 
             else:
@@ -200,10 +200,10 @@ class Game:
         figure = self.get_figure(f"{pos_x}::{pos_y}")
         if figure is None:
             return
-        if color == "Weiß" and figure.color == COLOR_BLACK:
+        if color == consts.PLAYER_WHITE and figure.color == consts.COLOR_BLACK:
             self.figures.remove(figure)
             print("Weißer Bauer schlägt schwarzen Bauer.")
-        elif color == "Schwarz" and figure.color == COLOR_WHITE:
+        elif color == consts.PLAYER_BLACK and figure.color == consts.COLOR_WHITE:
             self.figures.remove(figure)
             print("Schwarzer Bauer schlägt weißen Bauer.")
 
@@ -304,9 +304,9 @@ class Game:
         """
         changes turn
         """
-        if player == "Weiß":
-            return "Schwarz"
-        return "Weiß"
+        if player == consts.PLAYER_WHITE:
+            return consts.PLAYER_BLACK
+        return consts.PLAYER_WHITE
 
     @staticmethod
     def print_move_options(starting_position):

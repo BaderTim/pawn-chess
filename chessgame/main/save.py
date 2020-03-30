@@ -2,8 +2,9 @@
 save file class
 """
 
-from pawn import Pawn
 import os
+import consts
+from pawn import Pawn
 
 
 class Save:
@@ -46,7 +47,7 @@ class Save:
             figures = []
             for counter, line in enumerate(file_lines):
                 if counter == 0:
-                    if ("m" or "ki") not in line:
+                    if (consts.MODE_MULTI or consts.MODE_KI) not in line:
                         print(f"\nFehler: Datei '{self.save_file}' scheint "
                               f"einen fehlerhaften Spielmodi in Zeile {counter+1} zu haben.\n")
                         return None
