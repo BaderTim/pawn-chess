@@ -70,7 +70,7 @@ class Game:
         while not self.end_game:
             self.update_display()
             print(f"\nSpieler {player} ist am Zug. (Auswahl A1, Beenden x, Speichern s)")
-            user_input = input("Eingabe: ")
+            user_input = input("Eingabe: ").lower()
             if user_input == consts.ACT_SAVE:
                 Save(game_object=self, save_file=None)
                 self.saved = True

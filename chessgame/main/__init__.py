@@ -16,10 +16,10 @@ def main():
     while True:
         print("\n\n\n---WELCOME TO BAUERNSCHACH---\n")
         print("Neues Spiel: n\nSpiel laden: l\nBeenden: x\n")
-        user_input = input("Eingabe: ")
+        user_input = input("Eingabe: ").lower()
         if user_input == consts.ACT_NEW:
             print("\n\n\n # Neues Spiel # \nGegen Computer: ki\nMultiplayer: m\nZurück: b\n")
-            game_mode = input("Eingabe: ")
+            game_mode = input("Eingabe: ").lower()
             if game_mode in (consts.MODE_KI, consts.MODE_MULTI):
                 Game(game_mode)
             elif game_mode == consts.ACT_STOP:
