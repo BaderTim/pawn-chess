@@ -2,6 +2,7 @@
 Game Manager
 """
 
+import random
 import time
 import consts
 from pawn import Pawn
@@ -21,6 +22,7 @@ class Game:
         self.end_game = False
         self.game_mode = game_mode
         self.figures = None
+        self.ai_pawns = []
         self.saved = False
         print("\n\n")
         if game_mode == consts.MODE_KI:
@@ -30,7 +32,7 @@ class Game:
         else:
             while True:
                 print("Welche Speicherdatei möchtest du laden? (Zurück mit b)")
-                save_file = input("Eingabe: ")
+                save_file = input("Eingabe: ").lower()
                 if save_file == consts.ACT_BACK:
                     return
                 save_object = Save(save_file=save_file, game_object=None)
@@ -75,7 +77,7 @@ class Game:
                 Save(game_object=self, save_file=None)
                 self.saved = True
                 break
-            elif user_input == consts.ACT_STOP:
+            if user_input == consts.ACT_STOP:
                 if self.saved:
                     print("\nBeende mehrspieler Spiel...")
                     time.sleep(1)
@@ -88,7 +90,7 @@ class Game:
                             Save(game_object=self, save_file=None)
                             self.saved = True
                             break
-                        elif save_input == consts.ACT_STOP:
+                        if save_input == consts.ACT_STOP:
                             self.end_game = True
                             return
             else:
@@ -111,18 +113,73 @@ class Game:
 
         Argument: figures from saved game state
         """
-        print("Starte Spiel gegen KI...")
-        time.sleep(1)
+        print("Starte KI Spiel...")
+        time.sleep(1.5)
         if self.figures is None:
-            print("Baue Spielfeld auf...")
-            time.sleep(1)
+            self.figures = []
+            print("\nBaue Spielfeld auf...")
+            time.sleep(1.5)
             for counter in range(8):
-                self.figures.append(Pawn(counter + 1, 1, consts.COLOR_WHITE))
-                self.figures.append(Pawn(counter + 1, 8, consts.COLOR_BLACK))
-        self.update_display()
-        # TODO: Ai interaction
+                self.figures.append(Pawn(counter + 1, 2, consts.COLOR_WHITE))
+                self.figures.append(Pawn(counter + 1, 7, consts.COLOR_BLACK))
+        print("\nWeiß Beginnt, Schwarz gew...wir werdens sehen ;)\n")
+        time.sleep(1.5)
+        player = consts.PLAYER_WHITE
+        while not self.end_game:
+            while player == consts.PLAYER_WHITE:
+                self.update_display()
+                print(f"\nSpieler {player} ist am Zug. (Auswahl A1, Beenden x, Speichern s)")
+                user_input = input("Eingabe: ").lower()
+                if user_input == consts.ACT_SAVE:
+                    Save(game_object=self, save_file=None)
+                    self.saved = True
+                    break
+                if user_input == consts.ACT_STOP:
+                    if self.saved:
+                        print("\nBeende KI Spiel...")
+                        time.sleep(1)
+                        self.end_game = True
+                    else:
+                        print("Möchtest du vor dem beenden deinen Spielstand speichern?\nSpeichern 's', Beenden 'x'")
+                        save_input = input("Eingabe: ").lower()
+                        while True:
+                            if save_input == consts.ACT_SAVE:
+                                Save(game_object=self, save_file=None)
+                                self.saved = True
+                                break
+                            if save_input == consts.ACT_STOP:
+                                self.end_game = True
+                                return
+                else:
+                    print(f"\nSpieler {player} ist am Zug.")
+                    figure = self.get_figure(user_input)
+                    self.saved = False
+                    if figure is None:
+                        print("Falsche Eingabe. Bitte verwende das richtige Format (Bsp A4).\n")
+                    elif (figure.color == consts.COLOR_WHITE and player == consts.PLAYER_BLACK or
+                          figure.color == consts.COLOR_BLACK and player == consts.PLAYER_WHITE):
+                        print("Du kannst nicht die Figuren deines Gegners steuern.")
+                    else:
+                        player = self.move_handler(figure, player, user_input)
 
-    def move_handler(self, figure, player, user_input):
+            # AI Move
+            while player == consts.PLAYER_BLACK and not self.end_game:
+                self.update_display()
+                self.update_ai_pawns()
+                print(f"\nSpieler {player} ist am Zug.")
+
+                possible_ai_moves = self.ai_moves()
+                best_possible_moves = []
+
+                for movedict in possible_ai_moves.items():
+                    best_possible_moves.append(self.get_best_move(movedict))
+
+                final_decision = self.ai_decide(best_possible_moves)
+
+                figure = self.get_figure(final_decision[0])
+                player = self.move_handler(figure, player, f"{figure.pos_x}::{figure.pos_y}", final_decision[1])
+
+    def move_handler(self, figure, player, user_input, move_input=None):
         """
         Arguments:
             figure --> selected figure
@@ -147,9 +204,9 @@ class Game:
             # Checks if the figure is in starting position
             starting_position = (figure.pos_y == 2 and figure.color == consts.COLOR_WHITE) or (figure.pos_y == 7 and figure.color == consts.COLOR_BLACK)
 
-            self.print_move_options(starting_position)
-
-            move_input = input("Eingabe: ").lower()
+            if move_input is None:
+                self.print_move_options(starting_position)
+                move_input = input("Eingabe: ").lower()
 
             # Sets the right sign for the movement schemes
             if player == consts.PLAYER_WHITE:
@@ -259,6 +316,52 @@ class Game:
                 return figure
         return None
 
+    def update_ai_pawns(self):
+        '''
+        Updates pawns of the AI player
+        '''
+        self.ai_pawns = []
+        for figure in self.figures:
+            if figure.color == consts.COLOR_BLACK:
+                self.ai_pawns.append(figure)
+
+    def ai_moves(self):
+        '''
+        Returns a dict with all possible moves and their confidence values [0;100]
+        '''
+        self.update_ai_pawns()
+        possible_moves = {}
+
+        for pawn in self.ai_pawns:
+            templist = {}
+            # List of next position after each possible move: new_pos ['m','m2','l','r']
+            new_pos = [[pawn.pos_x, pawn.pos_y-1], [pawn.pos_x, pawn.pos_y-2], [pawn.pos_x-1, pawn.pos_y-1], [pawn.pos_x+1, pawn.pos_y-1]]
+
+            #Assigning confidence values | 0 == impossible ; 100 = winning move
+            if pawn.pos_y == 7 and self.is_occupied(new_pos[1][0], new_pos[1][1]) is None and self.is_occupied(new_pos[1][0], new_pos[1][1] + 1) is None:
+                templist.update({consts.MV_FWD2: (100 / new_pos[1][1])})
+            else:
+                templist.update({consts.MV_FWD2: 0})
+
+            if self.is_occupied(new_pos[0][0], new_pos[0][1]) is None:
+                templist.update({consts.MV_FWD1: (100/new_pos[0][1])})
+            else:
+                templist.update({consts.MV_FWD1:0})
+
+            if self.is_occupied(new_pos[2][0], new_pos[2][1]) == consts.COLOR_WHITE:
+                templist.update({consts.MV_LEFT: (100 / new_pos[2][1]) + 20})
+            else:
+                templist.update({consts.MV_LEFT: 0})
+
+            if self.is_occupied(new_pos[3][0], new_pos[3][1]) == consts.COLOR_WHITE:
+                templist.update({consts.MV_RIGHT: (100 / new_pos[3][1]) + 20})
+            else:
+                templist.update({consts.MV_RIGHT: 0})
+
+            possible_moves.update({f'{pawn.pos_x}::{pawn.pos_y}':templist})
+
+        return possible_moves
+    
     def update_display(self):
         """
         Updates Graphic Display
@@ -298,7 +401,32 @@ class Game:
                 line_space = 0
         table_output += "   A  B  C  D  E  F  G  H"
         print(table_output)
+    @staticmethod
+    def ai_decide(movelist: list):
+        '''
+        Decides which move will be executed based on confidence values
+        '''
+        max_val = 0
+        i = len(movelist) -1
+        for move in movelist:
+            if move[2] > max_val:
+                max_val = move[2]
+        while i >= 0:
+            if movelist[i][2] < max_val:
+                movelist.pop(i)
+            i -= 1
+        if len(movelist) > 1:
+            return movelist[random.randint(0, len(movelist)-1)]
+        return movelist[0]
 
+    @staticmethod
+    def get_best_move(movedict):
+        '''
+        gets the best possible move for a specific pawn
+        '''
+        max_key = max(movedict[1], key=lambda k: movedict[1][k])
+        ret_val = [movedict[0], max_key, movedict[1][max_key]]
+        return ret_val
     @staticmethod
     def toggle_player(player):
         """
