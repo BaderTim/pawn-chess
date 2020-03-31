@@ -126,7 +126,7 @@ class Game:
         time.sleep(1.5)
         player = consts.PLAYER_WHITE
         while not self.end_game:
-            while player == consts.PLAYER_WHITE:
+            while player == consts.PLAYER_WHITE and not self.end_game:
                 self.update_display()
                 print(f"\nSpieler {player} ist am Zug. (Auswahl A1, Beenden x, Speichern s)")
                 user_input = input("Eingabe: ").lower()
