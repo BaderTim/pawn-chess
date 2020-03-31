@@ -5,10 +5,12 @@ Bauernschach Projektarbeit für Programmieren in Python.
 Abgabe: **08.04.2020** 23:59
 
 ## TODO:
--Spielfeld Größe  
+-(Spielfeld Größe)  
 -<del>Bauern können sich zu Beginn 2 Felder nach vorne bewegen</del>
--KI Modus  
--(Save File verschlüsseln)  
+-<del>KI Modus</del>  
+-(Save File verschlüsseln)
+-Lesbarkeit
+-PyLint
 -Tests  
 -Dokumentation  
 
