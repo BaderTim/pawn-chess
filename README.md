@@ -7,12 +7,12 @@ Abgabe: **08.04.2020** 23:59
 ## TODO:
 -(Spielfeld Größe)  
 -<del>Bauern können sich zu Beginn 2 Felder nach vorne bewegen</del></br>
--<del>KI Modus</del> </br> 
--(Save File verschlüsseln)
--Lesbarkeit
--PyLint
--Tests  
--Dokumentation  
+-<del>KI Modus</del> </br>
+-(Save File verschlüsseln) </br>
+-Lesbarkeit </br>
+-PyLint </br>
+-Tests </br>
+-Dokumentation </br>
 
 
 ## GIT:
