@@ -6,8 +6,8 @@ Abgabe: **08.04.2020** 23:59
 
 ## TODO:
 -(Spielfeld Größe)  
--<del>Bauern können sich zu Beginn 2 Felder nach vorne bewegen</del>
--<del>KI Modus</del>  
+-<del>Bauern können sich zu Beginn 2 Felder nach vorne bewegen</del></br>
+-<del>KI Modus</del> </br> 
 -(Save File verschlüsseln)
 -Lesbarkeit
 -PyLint
