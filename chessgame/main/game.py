@@ -337,7 +337,7 @@ class Game:
             # List of next position after each possible move: new_pos ['m','m2','l','r']
             new_pos = [[pawn.pos_x, pawn.pos_y-1], [pawn.pos_x, pawn.pos_y-2], [pawn.pos_x-1, pawn.pos_y-1], [pawn.pos_x+1, pawn.pos_y-1]]
 
-            #Assigning confidence values | 0 == impossible ; 100 = winning move
+            # Assigning confidence values | 0 == impossible ; 100 = winning move
             if pawn.pos_y == 7 and self.is_occupied(new_pos[1][0], new_pos[1][1]) is None and self.is_occupied(new_pos[1][0], new_pos[1][1] + 1) is None:
                 templist.update({consts.MV_FWD2: (100 / new_pos[1][1])})
             else:
@@ -401,6 +401,7 @@ class Game:
                 line_space = 0
         table_output += "   A  B  C  D  E  F  G  H"
         print(table_output)
+
     @staticmethod
     def ai_decide(movelist: list):
         '''
@@ -427,6 +428,7 @@ class Game:
         max_key = max(movedict[1], key=lambda k: movedict[1][k])
         ret_val = [movedict[0], max_key, movedict[1][max_key]]
         return ret_val
+
     @staticmethod
     def toggle_player(player):
         """

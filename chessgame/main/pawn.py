@@ -25,7 +25,6 @@ class Pawn(Figure):
             2 if game has been won
         """
 
-
         if self.color == COLOR_WHITE:
             sign = 1
             finishing_row = 8
@@ -36,7 +35,7 @@ class Pawn(Figure):
             opponent = COLOR_WHITE
 
         # moving forward if not occupied
-        if self.pos_y + 1 * sign == new_y and new_y == finishing_row and is_occupied is None:      #Moved up here to fix win conditions
+        if self.pos_y + 1 * sign == new_y and new_y == finishing_row and is_occupied is None:
             return 2
         if self.pos_y + 1 * sign == new_y and self.pos_x == new_x and is_occupied is None:
             return 1
