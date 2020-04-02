@@ -12,7 +12,7 @@ class Pawn(Figure):
 
     def move_to(self, new_x, new_y, is_occupied):
         """
-        Move figure to new position
+        Checks whether move can be made
 
         Arguments:
             new_x {int} -- new position
@@ -20,9 +20,9 @@ class Pawn(Figure):
             is_occupied {None or COLOR} -- is new position occupied?
 
         Return:
-            0 if move was not made
-            1 if move has been made
-            2 if game has been won
+            0 if move can not be made
+            1 if move can be made
+            2 if game will be won
         """
 
         if self.color == COLOR_WHITE:
