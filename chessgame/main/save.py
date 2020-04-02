@@ -3,8 +3,8 @@ save file class
 """
 
 import os
-import consts
-from pawn import Pawn
+import chessgame.main.consts as consts
+from chessgame.main.pawn import Pawn
 
 
 class Save:

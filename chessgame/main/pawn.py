@@ -1,9 +1,9 @@
 """
 Pawn figure for the chess game
 """
-from figure import Figure
-from consts import COLOR_BLACK
-from consts import COLOR_WHITE
+from chessgame.main.figure import Figure
+from chessgame.main.consts import COLOR_BLACK
+from chessgame.main.consts import COLOR_WHITE
 
 
 class Pawn(Figure):

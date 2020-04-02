@@ -1,10 +1,9 @@
 # pylint: disable=C
 import unittest
-from pawn import Pawn
-from exceptions import OutOfBoundsException
-from consts import GAME_SIZE
-from consts import COLOR_BLACK
-from consts import COLOR_WHITE
+from chessgame.main.pawn import Pawn
+from chessgame.main.consts import GAME_SIZE
+from chessgame.main.consts import COLOR_BLACK
+from chessgame.main.consts import COLOR_WHITE
 
 
 class PawnTest(unittest.TestCase):
