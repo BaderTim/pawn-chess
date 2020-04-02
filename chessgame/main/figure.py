@@ -40,7 +40,7 @@ class Figure:
         Get x position
 
         Return:
-            x position
+            x position as int
         """
         return self.pos_x
 
@@ -55,7 +55,7 @@ class Figure:
         Get y position
 
         Return:
-            y position
+            y position as int
         """
         return self.pos_y
 
