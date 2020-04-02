@@ -87,6 +87,3 @@ class PawnTest(unittest.TestCase):
         self.assertEqual(f.move_to(3, 4, None), 1)
         self.assertEqual(f.move_to(4, 4, COLOR_BLACK), 1)
         self.assertEqual(f.move_to(2, 4, COLOR_BLACK), 1)
-
-if __name__ == "__main__":
-    unittest.main()
