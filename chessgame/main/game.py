@@ -351,7 +351,7 @@ class Game:
             possible_moves.update({f'{pawn.get_pos_x()}::{pawn.get_pos_y()}':templist})
 
         return possible_moves
-    
+
     def update_display(self):
         """
         Updates Graphic Display
