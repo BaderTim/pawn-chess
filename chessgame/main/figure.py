@@ -1,4 +1,5 @@
-"""Figure base class for the chess game
+"""
+Figure base class for the chess game
 """
 
 
@@ -23,7 +24,7 @@ class Figure:
         Return:
             Position as tuple (x, y)
         """
-        return [self.pos_x, self.pos_y]
+        return (self.pos_x, self.pos_y)
 
     def get_color(self):
         """Gets the color of the Figure
