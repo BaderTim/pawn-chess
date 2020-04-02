@@ -204,6 +204,7 @@ class Game:
             # Checks if the figure is in starting position
             starting_position = (figure.pos_y == 2 and figure.color == consts.COLOR_WHITE) or (figure.pos_y == 7 and figure.color == consts.COLOR_BLACK)
 
+            # TODO: mit folgender if Abfrage entsteht Endlosschleife bei Eingabe von einem falschen Zug (multiplayer modus)
             if move_input is None:
                 self.print_move_options(starting_position)
                 move_input = input("Eingabe: ").lower()
