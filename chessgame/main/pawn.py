@@ -49,3 +49,9 @@ class Pawn(Figure):
         if self.pos_x + 1 == new_x and self.pos_y + 1 * sign == new_y and is_occupied == opponent:
             return 1
         return 0
+
+    def to_string(self):
+        """
+        Converts all data of the Pawn to a string
+        """
+        return f"Position: x = {self.pos_x} , y = {self.pos_y}\nColor: {self.color}"
