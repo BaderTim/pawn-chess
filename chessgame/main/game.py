@@ -198,9 +198,8 @@ class Game:
                 move_input = input("Eingabe: ").lower()
 
             # Sets the right sign for the movement schemes
-            if player == consts.PLAYER_WHITE:
-                sign = 1
-            else:
+            sign = 1
+            if player == consts.PLAYER_BLACK:
                 sign = -1
 
             if move_input in move_vector:
