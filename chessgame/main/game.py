@@ -219,6 +219,7 @@ class Game:
                         self.check_for_hit(new_x, new_y, player)
                         figure.pos_x = new_x
                         figure.pos_y = new_y
+                        self.check_last_figure(player)
                         break
                     if response == 0:
                         print(f"Fehler: Zug {move_input} für {user_input} konnte nicht durchgeführt werden.")
@@ -350,7 +351,7 @@ class Game:
             possible_moves.update({f'{pawn.get_pos_x()}::{pawn.get_pos_y()}':templist})
 
         return possible_moves
-
+    
     def update_display(self):
         """
         Updates Graphic Display
@@ -390,6 +391,23 @@ class Game:
                 line_space = 0
         table_output += "   A  B  C  D  E  F  G  H"
         print(table_output)
+
+    def check_last_figure(self, player):
+        '''
+        Checks if the last captured figure was the last of the opponent
+        '''
+        counter_figures = 0
+        for pawn in enumerate(self.figures, 1):
+            if player == consts.PLAYER_WHITE:
+                enemy_color = consts.COLOR_BLACK
+            else:
+                enemy_color = consts.COLOR_WHITE
+
+            if pawn.color == enemy_color:
+                counter_figures += 1
+
+        if counter_figures > 0:
+            self.win(player)   
 
     @staticmethod
     def ai_decide(movelist: list):
