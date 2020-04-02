@@ -57,17 +57,8 @@ class Game:
 
         Argument: figures from saved game state
         """
-        print("Starte mehrspieler Spiel...")
-        time.sleep(1.5)
-        if self.figures is None:
-            self.figures = []
-            print("\nBaue Spielfeld auf...")
-            time.sleep(1.5)
-            for counter in range(8):
-                self.figures.append(Pawn(counter + 1, 2, consts.COLOR_WHITE))
-                self.figures.append(Pawn(counter + 1, 7, consts.COLOR_BLACK))
-        print("\nWeiß Beginnt, Schwarz gew...wir werdens sehen ;)\n")
-        time.sleep(1.5)
+        self.start_game(consts.MODE_MULTI)
+
         player = consts.PLAYER_WHITE
         while not self.end_game:
             self.update_display()
@@ -113,17 +104,8 @@ class Game:
 
         Argument: figures from saved game state
         """
-        print("Starte KI Spiel...")
-        time.sleep(1.5)
-        if self.figures is None:
-            self.figures = []
-            print("\nBaue Spielfeld auf...")
-            time.sleep(1.5)
-            for counter in range(8):
-                self.figures.append(Pawn(counter + 1, 2, consts.COLOR_WHITE))
-                self.figures.append(Pawn(counter + 1, 7, consts.COLOR_BLACK))
-        print("\nWeiß Beginnt, Schwarz gew...wir werdens sehen ;)\n")
-        time.sleep(1.5)
+        self.start_game(consts.MODE_KI)
+
         player = consts.PLAYER_WHITE
         while not self.end_game:
             while player == consts.PLAYER_WHITE and not self.end_game:
@@ -178,6 +160,26 @@ class Game:
 
                 figure = self.get_figure(final_decision[0])
                 player = self.move_handler(figure, player, f"{figure.pos_x}::{figure.pos_y}", final_decision[1])
+
+    def start_game(self, game_mode):
+        """
+        Starts beginning of the game
+        """
+        if game_mode == consts.MODE_MULTI:
+            print("Starte mehrspieler Spiel...")
+        else:
+            print("Starte KI Spiel...")
+
+        time.sleep(1.5)
+        if self.figures is None:
+            self.figures = []
+            print("\nBaue Spielfeld auf...")
+            time.sleep(1.5)
+            for counter in range(8):
+                self.figures.append(Pawn(counter + 1, 2, consts.COLOR_WHITE))
+                self.figures.append(Pawn(counter + 1, 7, consts.COLOR_BLACK))
+        print("\nWeiß Beginnt, Schwarz gew...wir werdens sehen ;)\n")
+        time.sleep(1.5)
 
     def move_handler(self, figure, player, user_input, move_input=None):
         """
