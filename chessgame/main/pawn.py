@@ -35,12 +35,12 @@ class Pawn(Figure):
             opponent = COLOR_WHITE
 
         # moving forward if not occupied
-        if self.pos_y + 1 * sign == new_y and self.pos_x == new_x and new_y == finishing_row and is_occupied is None:
+        if self.pos_x == new_x and self.pos_y + 1 * sign == new_y and new_y == finishing_row and is_occupied is None:
             return 2
-        if self.pos_y + 1 * sign == new_y and self.pos_x == new_x and is_occupied is None:
+        if self.pos_x == new_x and self.pos_y + 1 * sign == new_y and is_occupied is None:
             return 1
         # moving 2 fields forward if not occupied
-        if self.pos_y + 2 * sign == new_y and self.pos_x == new_x and is_occupied is None:
+        if self.pos_x == new_x and self.pos_y + 2 * sign == new_y and is_occupied is None:
             return 1
         # left diagonal hit
         if self.pos_x - 1 == new_x and self.pos_y + 1 * sign == new_y and is_occupied == opponent:
