@@ -347,7 +347,7 @@ class Game:
             else:
                 templist.update({consts.MV_RIGHT: 0})
 
-            possible_moves.update({f'{pawn.get_pos_x}::{pawn.get_pos_y}':templist})
+            possible_moves.update({f'{pawn.get_pos_x()}::{pawn.get_pos_y()}':templist})
 
         return possible_moves
 
