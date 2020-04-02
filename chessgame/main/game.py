@@ -232,9 +232,8 @@ class Game:
                         figure.pos_x = new_x
                         figure.pos_y = new_y
                         break
-                    elif response == 0:
+                    if response == 0:
                         print(f"Fehler: Zug {move_input} für {user_input} konnte nicht durchgeführt werden.")
-                        move_input = None
                     elif response == 2:
                         self.win(player)
                         break
@@ -247,7 +246,7 @@ class Game:
 
             else:
                 print("Falsche Eingabe.\n")
-
+            move_input = None
         return self.toggle_player(player)
 
     def check_for_hit(self, pos_x, pos_y, color):
