@@ -43,10 +43,34 @@ class Game:
                         self.game_mode = consts.MODE_MULTI
                         self.start_multiplayer_game()
                         break
-                    else:
-                        self.game_mode = consts.MODE_KI
-                        self.start_ai_game()
+                    self.game_mode = consts.MODE_KI
+                    self.start_ai_game()
+                    break
+
+    def save_game(self, user_input):
+        """
+        Handles saving and closing the game
+        """
+        if user_input == consts.ACT_SAVE:
+            Save(game_object=self, save_file=None)
+            self.saved = True
+        if user_input == consts.ACT_STOP:
+            if self.saved:
+                print("\nBeende mehrspieler Spiel...")
+                time.sleep(1)
+                self.end_game = True
+            else:
+                print("Möchtest du vor dem beenden deinen Spielstand speichern?\nSpeichern 's', Beenden 'x'")
+                save_input = input("Eingabe: ").lower()
+                while True:
+                    if save_input == consts.ACT_SAVE:
+                        Save(game_object=self, save_file=None)
+                        self.saved = True
+                        self.end_game = True
                         break
+                    if save_input == consts.ACT_STOP:
+                        self.end_game = True
+                        return
 
     def start_multiplayer_game(self):
         """
@@ -64,27 +88,8 @@ class Game:
             self.update_display()
             print(f"\nSpieler {player} ist am Zug. (Auswahl A1, Beenden x, Speichern s)")
             user_input = input("Eingabe: ").lower()
-            if user_input == consts.ACT_SAVE:
-                Save(game_object=self, save_file=None)
-                self.saved = True
-                break
-            if user_input == consts.ACT_STOP:
-                if self.saved:
-                    print("\nBeende mehrspieler Spiel...")
-                    time.sleep(1)
-                    self.end_game = True
-                else:
-                    print("Möchtest du vor dem beenden deinen Spielstand speichern?\nSpeichern 's', Beenden 'x'")
-                    save_input = input("Eingabe: ").lower()
-                    while True:
-                        if save_input == consts.ACT_SAVE:
-                            Save(game_object=self, save_file=None)
-                            self.saved = True
-                            break
-                        if save_input == consts.ACT_STOP:
-                            self.end_game = True
-                            return
-            else:
+            self.save_game(user_input)
+            if user_input not in (consts.ACT_SAVE, consts.ACT_STOP):
                 figure = self.get_figure(user_input)
                 self.saved = False
                 if figure is None:
@@ -112,27 +117,8 @@ class Game:
                 self.update_display()
                 print(f"\nSpieler {player} ist am Zug. (Auswahl A1, Beenden x, Speichern s)")
                 user_input = input("Eingabe: ").lower()
-                if user_input == consts.ACT_SAVE:
-                    Save(game_object=self, save_file=None)
-                    self.saved = True
-                    break
-                if user_input == consts.ACT_STOP:
-                    if self.saved:
-                        print("\nBeende KI Spiel...")
-                        time.sleep(1)
-                        self.end_game = True
-                    else:
-                        print("Möchtest du vor dem beenden deinen Spielstand speichern?\nSpeichern 's', Beenden 'x'")
-                        save_input = input("Eingabe: ").lower()
-                        while True:
-                            if save_input == consts.ACT_SAVE:
-                                Save(game_object=self, save_file=None)
-                                self.saved = True
-                                break
-                            if save_input == consts.ACT_STOP:
-                                self.end_game = True
-                                return
-                else:
+                self.save_game(user_input)
+                if user_input not in (consts.ACT_SAVE, consts.ACT_STOP):
                     print(f"\nSpieler {player} ist am Zug.")
                     figure = self.get_figure(user_input)
                     self.saved = False
@@ -160,6 +146,7 @@ class Game:
 
                 figure = self.get_figure(final_decision[0])
                 player = self.move_handler(figure, player, f"{figure.pos_x}::{figure.pos_y}", final_decision[1])
+                time.sleep(1)
 
     def start_game(self, game_mode):
         """
@@ -261,10 +248,10 @@ class Game:
             return
         if color == consts.PLAYER_WHITE and figure.color == consts.COLOR_BLACK:
             self.figures.remove(figure)
-            print("Weißer Bauer schlägt schwarzen Bauer.")
+            print("Weißer Bauer schlägt schwarzen Bauer.\n")
         elif color == consts.PLAYER_BLACK and figure.color == consts.COLOR_WHITE:
             self.figures.remove(figure)
-            print("Schwarzer Bauer schlägt weißen Bauer.")
+            print("Schwarzer Bauer schlägt weißen Bauer.\n")
 
     def win(self, color):
         """
