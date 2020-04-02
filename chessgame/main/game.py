@@ -397,7 +397,7 @@ class Game:
         Checks if the last captured figure was the last of the opponent
         '''
         counter_figures = 0
-        for pawn in enumerate(self.figures, 1):
+        for _, pawn in enumerate(self.figures, 1):
             if player == consts.PLAYER_WHITE:
                 enemy_color = consts.COLOR_BLACK
             else:
@@ -406,8 +406,8 @@ class Game:
             if pawn.color == enemy_color:
                 counter_figures += 1
 
-        if counter_figures > 0:
-            self.win(player)   
+        if counter_figures <= 0:
+            self.win(player)
 
     @staticmethod
     def ai_decide(movelist: list):
