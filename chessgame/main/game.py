@@ -258,6 +258,7 @@ class Game:
         Stops game thread by exiting main loop
         selects color as winner
         """
+        self.update_display()
         print(f"Spieler {color} hat gewonnen!")
         self.end_game = True
 
