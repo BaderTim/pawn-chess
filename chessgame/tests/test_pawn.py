@@ -1,6 +1,5 @@
 # pylint: disable=C
 import unittest
-
 from chessgame.main.pawn import Pawn
 from chessgame.main.exceptions import OutOfBoundsException
 from chessgame.main.consts import GAME_SIZE

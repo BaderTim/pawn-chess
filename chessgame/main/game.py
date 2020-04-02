@@ -287,7 +287,7 @@ class Game:
         if "::" in user_input:
             pos = user_input.split("::")
             for _, figure in enumerate(self.figures):
-                if figure.get_pos_x == int(pos[0]) and figure.get_pos_y == int(pos[1]):
+                if figure.get_pos_x() == int(pos[0]) and figure.get_pos_y() == int(pos[1]):
                     return figure
         # user_input filter
         if len(user_input) != 2 or not user_input[1].isdigit() or int(user_input[1]) > 8:
@@ -300,7 +300,7 @@ class Game:
             return None
 
         for _, figure in enumerate(self.figures):
-            if figure.get_pos_x == converted_pos_x and figure.get_pos_y == int(user_input[1]):
+            if figure.get_pos_x() == converted_pos_x and figure.get_pos_y() == int(user_input[1]):
                 return figure
         return None
 
@@ -323,11 +323,11 @@ class Game:
         for pawn in self.ai_pawns:
             templist = {}
             # List of next position after each possible move: new_pos ['m','m2','l','r']
-            new_pos = [[pawn.get_pos_x, pawn.get_pos_y-1], [pawn.get_pos_x, pawn.get_pos_y-2],
-                       [pawn.get_pos_x-1, pawn.get_pos_y-1], [pawn.get_pos_x+1, pawn.get_pos_y-1]]
+            new_pos = [[pawn.get_pos_x(), pawn.get_pos_y()-1], [pawn.get_pos_x(), pawn.get_pos_y()-2],
+                       [pawn.get_pos_x()-1, pawn.get_pos_y()-1], [pawn.get_pos_x()+1, pawn.get_pos_y()-1]]
 
             # Assigning confidence values | 0 == impossible ; 100 = winning move
-            if pawn.get_pos_y == 7 and self.is_occupied(new_pos[1][0], new_pos[1][1]) is None and self.is_occupied(new_pos[1][0], new_pos[1][1] + 1) is None:
+            if pawn.get_pos_y() == 7 and self.is_occupied(new_pos[1][0], new_pos[1][1]) is None and self.is_occupied(new_pos[1][0], new_pos[1][1] + 1) is None:
                 templist.update({consts.MV_FWD2: (100 / new_pos[1][1])})
             else:
                 templist.update({consts.MV_FWD2: 0})
