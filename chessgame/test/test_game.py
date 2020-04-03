@@ -1,4 +1,4 @@
-import unittestACT_STOP
+import unittest
 from chessgame.main.game import Game
 from chessgame.main.consts import MODE_MULTI
 from chessgame.main.consts import COLOR_BLACK
