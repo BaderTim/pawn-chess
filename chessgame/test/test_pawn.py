@@ -87,3 +87,52 @@ class PawnTest(unittest.TestCase):
         self.assertEqual(f.move_to(3, 4, None), 1)
         self.assertEqual(f.move_to(4, 4, COLOR_BLACK), 1)
         self.assertEqual(f.move_to(2, 4, COLOR_BLACK), 1)
+
+    def test_get_methods(self):
+        f = Pawn(4, 2, COLOR_WHITE)
+        self.assertEqual(f.get_position(), (4, 2))
+        self.assertEqual(f.get_pos_x(), 4)
+        self.assertEqual(f.get_pos_y(), 2)
+        self.assertEqual(f.get_color(), COLOR_WHITE)
+
+        f = Pawn(4, 2, COLOR_BLACK)
+        self.assertEqual(f.get_position(), (4, 2))
+        self.assertEqual(f.get_pos_x(), 4)
+        self.assertEqual(f.get_pos_y(), 2)
+        self.assertEqual(f.get_color(), COLOR_BLACK)
+
+        f = Pawn(7, 1, COLOR_WHITE)
+        self.assertEqual(f.get_position(), (7, 1))
+        self.assertEqual(f.get_pos_x(), 7)
+        self.assertEqual(f.get_pos_y(), 1)
+        self.assertEqual(f.get_color(), COLOR_WHITE)
+
+        f = Pawn(7, 1, COLOR_BLACK)
+        self.assertEqual(f.get_position(), (7, 1))
+        self.assertEqual(f.get_pos_x(), 7)
+        self.assertEqual(f.get_pos_y(), 1)
+        self.assertEqual(f.get_color(), COLOR_BLACK)
+
+        f = Pawn(2, 2, COLOR_WHITE)
+        self.assertEqual(f.get_position(), (2, 2))
+        self.assertEqual(f.get_pos_x(), 2)
+        self.assertEqual(f.get_pos_y(), 2)
+        self.assertEqual(f.get_color(), COLOR_WHITE)
+
+        f = Pawn(2, 2, COLOR_BLACK)
+        self.assertEqual(f.get_position(), (2, 2))
+        self.assertEqual(f.get_pos_x(), 2)
+        self.assertEqual(f.get_pos_y(), 2)
+        self.assertEqual(f.get_color(), COLOR_BLACK)
+
+        f = Pawn(6, 5, COLOR_WHITE)
+        self.assertEqual(f.get_position(), (6, 5))
+        self.assertEqual(f.get_pos_x(), 6)
+        self.assertEqual(f.get_pos_y(), 5)
+        self.assertEqual(f.get_color(), COLOR_WHITE)
+
+        f = Pawn(6, 5, COLOR_BLACK)
+        self.assertEqual(f.get_position(), (6, 5))
+        self.assertEqual(f.get_pos_x(), 6)
+        self.assertEqual(f.get_pos_y(), 5)
+        self.assertEqual(f.get_color(), COLOR_BLACK)
