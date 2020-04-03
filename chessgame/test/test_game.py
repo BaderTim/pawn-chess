@@ -1,8 +1,10 @@
-import unittest
+import unittestACT_STOP
 from chessgame.main.game import Game
 from chessgame.main.consts import MODE_MULTI
 from chessgame.main.consts import COLOR_BLACK
 from chessgame.main.consts import COLOR_WHITE
+from chessgame.main.consts import ACT_SAVE
+from chessgame.main.consts import ACT_STOP
 from chessgame.main.pawn import Pawn
 
 class GameTest(unittest.TestCase):
@@ -24,4 +26,17 @@ class GameTest(unittest.TestCase):
         self.assertEqual(len(game.figures), 16)
         for counter in range(16):
             self.assertEqual(game.figures[counter].get_position, pawns[counter].get_position)
-            
+
+    def test_save_game(self):
+        '''
+        Test for game.same_game
+        '''
+        game = Game(MODE_MULTI)
+        game.save_game(ACT_SAVE)
+        self.assertTrue(game.saved)
+        game.saved = True
+        game.save_game(ACT_STOP)
+        self.assertTrue(game.end_game)
+        game.saved = False
+        game.save_game(ACT_STOP)
+        
