@@ -1,3 +1,4 @@
+# pylint: disable=C
 import unittest
 from chessgame.main.game import Game
 from chessgame.main.consts import MODE_MULTI
