@@ -5,6 +5,8 @@ from chessgame.main.consts import COLOR_BLACK
 from chessgame.main.consts import COLOR_WHITE
 from chessgame.main.consts import PLAYER_BLACK
 from chessgame.main.consts import PLAYER_WHITE
+from chessgame.main.consts import MODE_MULTI
+from chessgame.main.consts import MODE_KI
 from chessgame.main.pawn import Pawn
 
 
@@ -88,3 +90,49 @@ class GameTest(unittest.TestCase):
         game.check_for_hit(1, 7, PLAYER_BLACK)
         fig_counter_pos = len(game.figures)
         self.assertEqual(fig_counter_pre, fig_counter_pos)
+
+    def test_start_multiplayer_game_and_win(self):
+        game = Game("test")
+        game.figures = []
+        game.win(PLAYER_WHITE)
+        self.assertTrue(game.end_game)
+
+        game = Game("test")
+        game.figures = []
+        game.win(PLAYER_WHITE)
+        self.assertTrue(game.end_game)
+        game.start_multiplayer_game()
+        self.assertEqual(len(game.figures), 16)
+
+    def test_start_ai_game(self):
+        game = Game("test")
+        game.figures = []
+        game.win(PLAYER_WHITE)
+        self.assertTrue(game.end_game)
+        game.start_ai_game()
+        self.assertEqual(len(game.figures), 16)
+
+    def test_is_occupied(self):
+        game = Game("test")
+        game.figures = []
+        for counter in range(8):
+            game.figures.append(Pawn(counter + 1, 2, COLOR_WHITE))
+            game.figures.append(Pawn(counter + 1, 7, COLOR_BLACK))
+        self.assertEqual(game.is_occupied(1, 2), COLOR_WHITE)
+        self.assertEqual(game.is_occupied(1, 7), COLOR_BLACK)
+        self.assertEqual(game.is_occupied(5, 5), None)
+
+    def test_update_ai_pawns(self):
+        game = Game("test")
+        game.figures = []
+        for counter in range(8):
+            game.figures.append(Pawn(counter + 1, 2, COLOR_WHITE))
+            game.figures.append(Pawn(counter + 1, 7, COLOR_BLACK))
+        game.update_ai_pawns()
+        self.assertEqual(len(game.ai_pawns), 8)
+
+    def test_toggle_player(self):
+        game = Game("test")
+        self.assertEqual(game.toggle_player(PLAYER_WHITE), PLAYER_BLACK)
+        self.assertEqual(game.toggle_player(PLAYER_BLACK), PLAYER_WHITE)
+

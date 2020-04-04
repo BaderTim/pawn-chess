@@ -57,7 +57,7 @@ class Game:
             print("Starte KI Spiel...")
 
         time.sleep(1.5)
-        if self.figures is None:
+        if self.figures is None or len(self.figures) == 0:
             self.figures = []
             print("\nBaue Spielfeld auf...")
             time.sleep(1.5)
