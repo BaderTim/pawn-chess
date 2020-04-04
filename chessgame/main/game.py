@@ -183,7 +183,8 @@ class Game:
         """
         while True:
             # Checks if the figure is in starting position
-            starting_position = (figure.get_pos_y() == 2 and figure.color == consts.COLOR_WHITE) or (figure.get_pos_y() == 7 and figure.color == consts.COLOR_BLACK)
+            starting_position = ((figure.get_pos_y() == 2 and figure.color == consts.COLOR_WHITE) or
+                                 (figure.get_pos_y() == 7 and figure.color == consts.COLOR_BLACK))
 
             if move_input is None:
                 self.print_move_options(starting_position)
