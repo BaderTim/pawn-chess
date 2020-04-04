@@ -136,3 +136,86 @@ class GameTest(unittest.TestCase):
         self.assertEqual(game.toggle_player(PLAYER_WHITE), PLAYER_BLACK)
         self.assertEqual(game.toggle_player(PLAYER_BLACK), PLAYER_WHITE)
 
+    def test_make_move_invalid_input(self):
+        game = Game("test")
+        game.figures = []
+        f = Pawn(1, 1, COLOR_BLACK)
+        game.figures.append(f)
+
+        self.assertEqual(game.make_move(f, PLAYER_WHITE, "test123", True), 3)
+
+    def test_make_move_invalid_input_m2(self):
+        game = Game("test")
+        game.figures = []
+        f = Pawn(3, 4, COLOR_WHITE)
+        game.figures.append(f)
+        f2 = Pawn(4, 3, COLOR_BLACK)
+        game.figures.append(f2)
+
+        self.assertEqual(game.make_move(f, PLAYER_WHITE, "m2", False), 4)
+        self.assertEqual(game.make_move(f2, PLAYER_BLACK, "m2", False), 4)
+
+    def test_make_move_valid_move(self):
+        game = Game("test")
+        game.figures = []
+        f = Pawn(2, 2, COLOR_BLACK)
+        game.figures.append(f)
+
+        self.assertEqual(game.make_move(f, PLAYER_WHITE, "m2", False), 4)
+
+    def test_make_move_invalid_move_m2(self):
+        game = Game("test")
+        game.figures = []
+        f = Pawn(2, 2, COLOR_WHITE)
+        game.figures.append(f)
+        f2 = Pawn(2, 3, COLOR_BLACK)
+        game.figures.append(f2)
+        self.assertEqual(game.make_move(f, PLAYER_WHITE, "m2", True), 0)
+
+        game.figures.clear()
+        f = Pawn(2, 2, COLOR_WHITE)
+        game.figures.append(f)
+        f2 = Pawn(2, 3, COLOR_BLACK)
+        game.figures.append(f2)	
+        f3 = Pawn(2, 4, COLOR_WHITE)
+        game.figures.append(f3)
+        self.assertEqual(game.make_move(f, PLAYER_WHITE, "m2", True), 0)
+
+    def test_make_move_invalid_move_m(self):
+        game = Game("test")
+        game.figures = []
+        f = Pawn(2, 2, COLOR_WHITE)
+        game.figures.append(f)
+        f2 = Pawn(2, 3, COLOR_BLACK)
+        game.figures.append(f2)
+        self.assertEqual(game.make_move(f, PLAYER_WHITE, "m", True), 0)
+
+    def test_make_move_invalid_move_diagonal(self):
+        game = Game("test")
+        game.figures = []
+        f = Pawn(2, 2, COLOR_WHITE)
+        game.figures.append(f)
+        f2 = Pawn(3, 3, COLOR_WHITE)
+        game.figures.append(f2)
+        self.assertEqual(game.make_move(f, PLAYER_WHITE, "r", True), 0)
+    
+        game.figures.clear()
+        f = Pawn(2, 2, COLOR_BLACK)
+        game.figures.append(f)
+        self.assertEqual(game.make_move(f, PLAYER_BLACK, "l", True), 0)
+
+    def test_make_move_valid_move_m(self):
+        game = Game("test")
+        game.figures = []
+        f = Pawn(2, 2, COLOR_WHITE)
+        game.figures.append(f)
+        f2 = Pawn(7, 7, COLOR_BLACK)
+        game.figures.append(f2)
+        self.assertEqual(game.make_move(f, PLAYER_WHITE, "m", True), 1)
+
+    def test_make_move_valid_move_m_finish(self):
+        game = Game("test")
+        game.figures = []
+        f = Pawn(4, 2, COLOR_BLACK)
+        game.figures.append(f)
+        self.assertEqual(game.make_move(f, PLAYER_BLACK, "m", True), 2)
