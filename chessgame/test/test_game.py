@@ -42,6 +42,9 @@ class GameTest(unittest.TestCase):
             self.assertEqual(game.get_figure(user_input).get_pos_x(), Pawn(counter + 1, 7, COLOR_BLACK).get_pos_x())
             self.assertEqual(game.get_figure(user_input).get_pos_y(), Pawn(counter + 1, 7, COLOR_BLACK).get_pos_y())
             self.assertEqual(game.get_figure(user_input).get_color(), Pawn(counter + 1, 2, COLOR_BLACK).get_color())
+        self.assertEqual(game.get_figure("A0"), None)
+        self.assertEqual(game.get_figure("A9"), None)
+        self.assertEqual(game.get_figure("K2"), None)
 
     def test_check_for_hit_none(self):
         game = Game("test")
