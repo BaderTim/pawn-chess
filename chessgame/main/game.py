@@ -29,7 +29,7 @@ class Game:
             self.start_ai_game()
         elif game_mode == consts.MODE_MULTI:
             self.start_multiplayer_game()
-        else:
+        elif game_mode != "test":
             while True:
                 print("Welche Speicherdatei möchtest du laden? (Zurück mit b)")
                 save_file = input("Eingabe: ").lower()
