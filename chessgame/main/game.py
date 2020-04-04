@@ -181,14 +181,6 @@ class Game:
         Return:
             player --> either white or black, changes after each turn
         """
-
-        move_vector = {
-            consts.MV_FWD1  : {consts.COORD_X :  0, consts.COORD_Y : 1},
-            consts.MV_FWD2  : {consts.COORD_X :  0, consts.COORD_Y : 2},
-            consts.MV_LEFT  : {consts.COORD_X : -1, consts.COORD_Y : 1},
-            consts.MV_RIGHT : {consts.COORD_X :  1, consts.COORD_Y : 1}
-        }
-
         while True:
             # Checks if the figure is in starting position
             starting_position = (figure.pos_y == 2 and figure.color == consts.COLOR_WHITE) or (figure.pos_y == 7 and figure.color == consts.COLOR_BLACK)
@@ -197,46 +189,69 @@ class Game:
                 self.print_move_options(starting_position)
                 move_input = input("Eingabe: ").lower()
 
-            # Sets the right sign for the movement schemes
-            sign = 1
-            if player == consts.PLAYER_BLACK:
-                sign = -1
-
-            if move_input in move_vector:
-                new_x = figure.pos_x + move_vector[move_input][consts.COORD_X]
-                new_y = figure.pos_y + move_vector[move_input][consts.COORD_Y] * sign      # *sign -> right direction for black or white
-
-                target_occupied = self.is_occupied(new_x, new_y)
-
-                if move_input == consts.MV_FWD2 and target_occupied is None:
-                    target_occupied = self.is_occupied(figure.pos_x + move_vector[consts.MV_FWD1][consts.COORD_X],
-                                                       figure.pos_y + move_vector[consts.MV_FWD1][consts.COORD_Y] * sign)
-
-                if (move_input == consts.MV_FWD2 and starting_position) or move_input != consts.MV_FWD2:
-                    response = figure.move_to(new_x, new_y, target_occupied)
-
-                    if response == 1:
-                        self.check_for_hit(new_x, new_y, player)
-                        figure.pos_x = new_x
-                        figure.pos_y = new_y
-                        self.check_last_figure(player)
-                        break
-                    if response == 0:
-                        print(f"Fehler: Zug {move_input} für {user_input} konnte nicht durchgeführt werden.")
-                    elif response == 2:
-                        self.win(player)
-                        break
-
-                else:
-                    print("m2 nicht zulässig.\n")
-
-            elif move_input == consts.ACT_BACK:
+            if move_input == consts.ACT_BACK:
                 return player
 
-            else:
+
+            response = self.make_move(figure, player, move_input, starting_position)
+
+            if response == 0:
+                print(f"Fehler: Zug {move_input} für {user_input} konnte nicht durchgeführt werden.")
+            elif response == 1:
+                break
+            if response == 2:
+                self.win(player)
+                break
+            if response == 3:
                 print("Falsche Eingabe.\n")
+            elif response == 4:
+                print("m2 nicht zulässig.\n")
+
             move_input = None
         return self.toggle_player(player)
+
+    def make_move(self, figure, player, move_input, starting_position):
+        """
+        Makes Move
+        """
+        move_vector = {
+            consts.MV_FWD1  : {consts.COORD_X :  0, consts.COORD_Y : 1},
+            consts.MV_FWD2  : {consts.COORD_X :  0, consts.COORD_Y : 2},
+            consts.MV_LEFT  : {consts.COORD_X : -1, consts.COORD_Y : 1},
+            consts.MV_RIGHT : {consts.COORD_X :  1, consts.COORD_Y : 1}
+        }
+        # invalid input
+        if move_input not in move_vector:
+            return 3
+
+        # Sets the right sign for the movement schemes
+        sign = 1
+        if player == consts.PLAYER_BLACK:
+            sign = -1
+
+        new_x = figure.pos_x + move_vector[move_input][consts.COORD_X]
+        new_y = figure.pos_y + move_vector[move_input][consts.COORD_Y] * sign      # *sign -> right direction for black or white
+
+        target_occupied = self.is_occupied(new_x, new_y)
+
+        if move_input == consts.MV_FWD2 and target_occupied is None:
+            target_occupied = self.is_occupied(figure.pos_x + move_vector[consts.MV_FWD1][consts.COORD_X],
+                                               figure.pos_y + move_vector[consts.MV_FWD1][consts.COORD_Y] * sign)
+
+        if (move_input == consts.MV_FWD2 and starting_position) or move_input != consts.MV_FWD2:
+            response = figure.move_to(new_x, new_y, target_occupied)
+
+            if response == 1:
+                self.check_for_hit(new_x, new_y, player)
+                figure.pos_x = new_x
+                figure.pos_y = new_y
+                self.check_last_figure(player)
+
+        # m2 not allowed
+        else:
+            return 4
+
+        return response
 
     def check_for_hit(self, pos_x, pos_y, color):
         """
