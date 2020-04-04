@@ -183,7 +183,7 @@ class Game:
         """
         while True:
             # Checks if the figure is in starting position
-            starting_position = (figure.pos_y == 2 and figure.color == consts.COLOR_WHITE) or (figure.pos_y == 7 and figure.color == consts.COLOR_BLACK)
+            starting_position = (figure.get_pos_y() == 2 and figure.color == consts.COLOR_WHITE) or (figure.get_pos_y() == 7 and figure.color == consts.COLOR_BLACK)
 
             if move_input is None:
                 self.print_move_options(starting_position)
@@ -229,22 +229,22 @@ class Game:
         if player == consts.PLAYER_BLACK:
             sign = -1
 
-        new_x = figure.pos_x + move_vector[move_input][consts.COORD_X]
-        new_y = figure.pos_y + move_vector[move_input][consts.COORD_Y] * sign      # *sign -> right direction for black or white
+        new_x = figure.get_pos_x() + move_vector[move_input][consts.COORD_X]
+        new_y = figure.get_pos_y() + move_vector[move_input][consts.COORD_Y] * sign      # *sign -> right direction for black or white
 
         target_occupied = self.is_occupied(new_x, new_y)
 
         if move_input == consts.MV_FWD2 and target_occupied is None:
-            target_occupied = self.is_occupied(figure.pos_x + move_vector[consts.MV_FWD1][consts.COORD_X],
-                                               figure.pos_y + move_vector[consts.MV_FWD1][consts.COORD_Y] * sign)
+            target_occupied = self.is_occupied(figure.get_pos_x() + move_vector[consts.MV_FWD1][consts.COORD_X],
+                                               figure.get_pos_y() + move_vector[consts.MV_FWD1][consts.COORD_Y] * sign)
 
         if (move_input == consts.MV_FWD2 and starting_position) or move_input != consts.MV_FWD2:
             response = figure.move_to(new_x, new_y, target_occupied)
 
             if response == 1:
                 self.check_for_hit(new_x, new_y, player)
-                figure.pos_x = new_x
-                figure.pos_y = new_y
+                figure.set_pos_x(new_x)
+                figure.set_pos_y(new_y)
                 self.check_last_figure(player)
 
         # m2 not allowed
