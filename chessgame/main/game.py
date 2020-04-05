@@ -231,7 +231,6 @@ class Game:
                 2 if game has been won
                 3 if the input is invalid
                 4 if m2 (move forward 2 spaces) wasn't possible
-
         """
         # invalid input
         if move_input not in consts.MOVE_VECTOR:
