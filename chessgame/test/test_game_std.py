@@ -42,12 +42,6 @@ class StringIO(io.StringIO):
 
 class StdioChessTestCase(unittest.TestCase):
 
-    def helper(self, data, answer, runner):
-        stub_stdin(self, data)
-        stub_stdouts(self)
-        runner()
-        self.assertEqual(sys.stdout.getvalue(), answer)
-
     def test_move_handler_input_b(self):
         stub_stdin(self, "b")
         stub_stdouts(self)
