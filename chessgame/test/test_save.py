@@ -1,3 +1,4 @@
+pylint: disable=C
 import unittest
 from chessgame.main.save import Save
 from chessgame.main.consts import COLOR_BLACK, COLOR_WHITE
@@ -12,10 +13,9 @@ class SaveTest(unittest.TestCase):
         std.stub_stdin(self, "test")
         for counter in range(8):
             game.figures.append(Pawn(counter + 1, 2, COLOR_WHITE))
-            game.figures.append(Pawn(counter + 1, 7, COLOR_BLACK))
-        
+            game.figures.append(Pawn(counter + 1, 7, COLOR_BLACK))      
         save = Save(game, None)
-        save.save_game
+        save.save_game 
         file = open(save.path + save.save_file, "w+")
         self.assertEqual(game.game_mode + "\n", file.readline)
         for counter, figure in enumerate(game.figures):
