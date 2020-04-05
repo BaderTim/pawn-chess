@@ -167,7 +167,10 @@ class Game:
                 final_decision = self.ai_decide(best_possible_moves)
 
                 figure = self.get_figure(final_decision[0])
-                player = self.move_handler(figure, player, f"{figure.pos_x}::{figure.pos_y}", final_decision[1])
+                figure_old_x = figure.get_pos_x()
+                figure_old_y = figure.get_pos_y()
+                player = self.move_handler(figure, player, f"{figure.get_pos_x()}::{figure.get_pos_y()}", final_decision[1])
+                print(f"\n Spieler {player} bewegt seinen Bauer von {figure_old_x}::{figure_old_y} nach {figure.get_pos_x()}::{figure.get_pos_y()}")
                 time.sleep(1)
 
     def move_handler(self, figure, player, user_input, move_input=None):
@@ -263,6 +266,10 @@ class Game:
                 figure.set_pos_x(new_x)
                 figure.set_pos_y(new_y)
                 self.check_last_figure(player)
+            elif response == 2:
+                self.check_for_hit(new_x, new_y, player)
+                figure.set_pos_x(new_x)
+                figure.set_pos_y(new_y)
 
         # m2 not allowed
         else:
@@ -298,6 +305,7 @@ class Game:
         Args:
             player {String}: the currently active player
         """
+        self.update_display()
         print(f"Spieler {player} hat gewonnen!")
         self.end_game = True
 
