@@ -20,7 +20,7 @@ def main():
         if user_input == consts.ACT_NEW:
             print("\n\n\n # Neues Spiel # \nGegen Computer: ki\nMehrspieler: m\nZurück: b\n")
             game_mode = input("Eingabe: ").lower()
-            if game_mode in (consts.MODE_KI, consts.MODE_MULTI):
+            if game_mode in (consts.MODE_AI, consts.MODE_MULTI):
                 Game(game_mode)
             elif game_mode == consts.ACT_STOP:
                 break

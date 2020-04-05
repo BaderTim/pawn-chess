@@ -27,7 +27,7 @@ class Game:
         self.ai_pawns = []
         self.saved = False
         print("\n\n")
-        if game_mode == consts.MODE_KI:
+        if game_mode == consts.MODE_AI:
             self.start_ai_game()
         elif game_mode == consts.MODE_MULTI:
             self.start_multiplayer_game()
@@ -45,8 +45,8 @@ class Game:
                         self.game_mode = consts.MODE_MULTI
                         self.start_multiplayer_game()
                         break
-                    if save_load[0] == consts.MODE_KI:
-                        self.game_mode = consts.MODE_KI
+                    if save_load[0] == consts.MODE_AI:
+                        self.game_mode = consts.MODE_AI
                         self.start_ai_game()
                     if save_load[0] == consts.MODE_TEST:
                         self.game_mode = consts.MODE_TEST
@@ -134,7 +134,7 @@ class Game:
         --> Manages score
         --> Saves and updates display after ever turn
         """
-        self.start_game(consts.MODE_KI)
+        self.start_game(consts.MODE_AI)
 
         player = consts.PLAYER_WHITE
         while not self.end_game:

@@ -301,3 +301,49 @@ class StdioChessTestCase(unittest.TestCase):
 
         output = sys.stdout.getvalue()
         self.assertIn("\nBeende das Spiel...", output)
+
+    def test_game_init_input_multi(self):
+        stub_stdin(self, "s\ntest123_m\nx")
+        stub_stdouts(self)
+
+        Game(consts.MODE_MULTI)
+
+        self.doCleanups()
+
+        stub_stdin(self, "test123_m\nx\nx")
+        stub_stdouts(self)
+
+        game = Game(consts.ACT_LOAD)
+        
+        testlist = []
+        test_game_mode = consts.MODE_MULTI
+        for counter in range(8):
+            testlist.append(Pawn(counter + 1, 2, consts.COLOR_WHITE))
+            testlist.append(Pawn(counter + 1, 7, consts.COLOR_BLACK))
+
+        for idx, figure in enumerate(testlist, 0):
+            self.assertEqual(game.figures[idx].to_string(), figure.to_string())
+        self.assertEqual(game.game_mode, test_game_mode)
+
+    def test_game_init_input_ai(self):
+        stub_stdin(self, "s\ntest123_ai\nx")
+        stub_stdouts(self)
+
+        Game(consts.MODE_AI)
+
+        self.doCleanups()
+
+        stub_stdin(self, "test123_ai\nx\nx")
+        stub_stdouts(self)
+        
+        game = Game(consts.ACT_LOAD)
+        
+        testlist = []
+        test_game_mode = consts.MODE_AI
+        for counter in range(8):
+            testlist.append(Pawn(counter + 1, 2, consts.COLOR_WHITE))
+            testlist.append(Pawn(counter + 1, 7, consts.COLOR_BLACK))
+
+        for idx, figure in enumerate(testlist, 0):
+            self.assertEqual(game.figures[idx].to_string(), figure.to_string())
+        self.assertEqual(game.game_mode, test_game_mode)

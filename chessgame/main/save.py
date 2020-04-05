@@ -51,7 +51,7 @@ class Save:
             figures = []
             for counter, line in enumerate(file_lines):
                 if counter == 0:
-                    if consts.MODE_KI not in line and consts.MODE_MULTI not in line and consts.MODE_TEST not in line:
+                    if consts.MODE_AI not in line and consts.MODE_MULTI not in line and consts.MODE_TEST not in line:
                         print(f"\nFehler: Datei '{self.save_file}' scheint "
                               f"einen fehlerhaften Spielmodi in Zeile {counter+1} zu haben.\n")
                         file.close()

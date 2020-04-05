@@ -10,7 +10,7 @@ COLOR_BLACK = 'b'
 PLAYER_WHITE = "Weiß"
 PLAYER_BLACK = "Schwarz"
 
-MODE_KI = "ki"
+MODE_AI = "ai"
 MODE_MULTI = "m"
 MODE_TEST = "t"
 
