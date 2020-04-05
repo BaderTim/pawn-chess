@@ -171,8 +171,8 @@ class Game:
                 figure = self.get_figure(final_decision[0])
                 figure_old_x = figure.get_pos_x()
                 figure_old_y = figure.get_pos_y()
+                print(f"\nSpieler {player} bewegt seinen Bauer von {figure_old_x}::{figure_old_y} nach {figure.get_pos_x()}::{figure.get_pos_y()}")
                 player = self.move_handler(figure, player, f"{figure.get_pos_x()}::{figure.get_pos_y()}", final_decision[1])
-                print(f"\n Spieler {player} bewegt seinen Bauer von {figure_old_x}::{figure_old_y} nach {figure.get_pos_x()}::{figure.get_pos_y()}")
                 time.sleep(1)
 
     def move_handler(self, figure, player, user_input, move_input=None):
