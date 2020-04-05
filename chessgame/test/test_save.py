@@ -1,16 +1,16 @@
 #pylint: disable=C
 import unittest
 from chessgame.main.save import Save
-from chessgame.main.consts import COLOR_BLACK, COLOR_WHITE
+from chessgame.main.consts import COLOR_BLACK, COLOR_WHITE, MODE_TEST
 from chessgame.main.pawn import Pawn
 from chessgame.main.game import Game
 import chessgame.test.test_game_std as std
 class SaveTest(unittest.TestCase):
     def test_save_game(self):
-        game = Game("test")
-        game.start_game("test")
+        game = Game(MODE_TEST)
+        game.start_game(MODE_TEST)
         std.stub_stdouts(self)
-        std.stub_stdin(self, "test")
+        std.stub_stdin(self, MODE_TEST)
         for counter in range(8):
             game.figures.append(Pawn(counter + 1, 2, COLOR_WHITE))
             game.figures.append(Pawn(counter + 1, 7, COLOR_BLACK))      

@@ -5,8 +5,7 @@ from chessgame.main.consts import COLOR_BLACK
 from chessgame.main.consts import COLOR_WHITE
 from chessgame.main.consts import PLAYER_BLACK
 from chessgame.main.consts import PLAYER_WHITE
-from chessgame.main.consts import MODE_MULTI
-from chessgame.main.consts import MODE_KI
+from chessgame.main.consts import MODE_TEST
 from chessgame.main.pawn import Pawn
 
 
@@ -16,7 +15,7 @@ class GameTest(unittest.TestCase):
     '''
 
     def test_get_figure_machine_input(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         for counter in range(8):
             game.figures.append(Pawn(counter + 1, 2, COLOR_WHITE))
@@ -31,7 +30,7 @@ class GameTest(unittest.TestCase):
             self.assertEqual(game.get_figure(machine_input).get_color(), Pawn(counter + 1, 2, COLOR_BLACK).get_color())
 
     def test_get_figure_user_input(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         for counter in range(8):
             game.figures.append(Pawn(counter + 1, 2, COLOR_WHITE))
@@ -49,7 +48,7 @@ class GameTest(unittest.TestCase):
         self.assertEqual(game.get_figure("K2"), None)
 
     def test_check_for_hit_none(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         for counter in range(8):
             game.figures.append(Pawn(counter + 1, 2, COLOR_WHITE))
@@ -60,7 +59,7 @@ class GameTest(unittest.TestCase):
         self.assertEqual(fig_counter_pre, fig_counter_pos)
 
     def test_check_for_hit_true(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         for counter in range(8):
             game.figures.append(Pawn(counter + 1, 2, COLOR_WHITE))
@@ -76,7 +75,7 @@ class GameTest(unittest.TestCase):
         self.assertNotEqual(fig_counter_pre, fig_counter_pos)
 
     def test_check_for_hit_false(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         for counter in range(8):
             game.figures.append(Pawn(counter + 1, 2, COLOR_WHITE))
@@ -92,12 +91,12 @@ class GameTest(unittest.TestCase):
         self.assertEqual(fig_counter_pre, fig_counter_pos)
 
     def test_start_multiplayer_game_and_win(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         game.win(PLAYER_WHITE)
         self.assertTrue(game.end_game)
 
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         game.win(PLAYER_WHITE)
         self.assertTrue(game.end_game)
@@ -105,7 +104,7 @@ class GameTest(unittest.TestCase):
         self.assertEqual(len(game.figures), 16)
 
     def test_start_ai_game(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         game.win(PLAYER_WHITE)
         self.assertTrue(game.end_game)
@@ -113,7 +112,7 @@ class GameTest(unittest.TestCase):
         self.assertEqual(len(game.figures), 16)
 
     def test_is_occupied(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         for counter in range(8):
             game.figures.append(Pawn(counter + 1, 2, COLOR_WHITE))
@@ -123,7 +122,7 @@ class GameTest(unittest.TestCase):
         self.assertEqual(game.is_occupied(5, 5), None)
 
     def test_update_ai_pawns(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         for counter in range(8):
             game.figures.append(Pawn(counter + 1, 2, COLOR_WHITE))
@@ -132,12 +131,12 @@ class GameTest(unittest.TestCase):
         self.assertEqual(len(game.ai_pawns), 8)
 
     def test_toggle_player(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         self.assertEqual(game.toggle_player(PLAYER_WHITE), PLAYER_BLACK)
         self.assertEqual(game.toggle_player(PLAYER_BLACK), PLAYER_WHITE)
 
     def test_make_move_invalid_input(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         f = Pawn(1, 1, COLOR_BLACK)
         game.figures.append(f)
@@ -145,7 +144,7 @@ class GameTest(unittest.TestCase):
         self.assertEqual(game.make_move(f, PLAYER_WHITE, "test123", True), 3)
 
     def test_make_move_invalid_input_m2(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         f = Pawn(3, 4, COLOR_WHITE)
         game.figures.append(f)
@@ -156,7 +155,7 @@ class GameTest(unittest.TestCase):
         self.assertEqual(game.make_move(f2, PLAYER_BLACK, "m2", False), 4)
 
     def test_make_move_valid_move(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         f = Pawn(2, 2, COLOR_BLACK)
         game.figures.append(f)
@@ -164,7 +163,7 @@ class GameTest(unittest.TestCase):
         self.assertEqual(game.make_move(f, PLAYER_WHITE, "m2", False), 4)
 
     def test_make_move_invalid_move_m2(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         f = Pawn(2, 2, COLOR_WHITE)
         game.figures.append(f)
@@ -182,7 +181,7 @@ class GameTest(unittest.TestCase):
         self.assertEqual(game.make_move(f, PLAYER_WHITE, "m2", True), 0)
 
     def test_make_move_invalid_move_m(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         f = Pawn(2, 2, COLOR_WHITE)
         game.figures.append(f)
@@ -191,7 +190,7 @@ class GameTest(unittest.TestCase):
         self.assertEqual(game.make_move(f, PLAYER_WHITE, "m", True), 0)
 
     def test_make_move_invalid_move_diagonal(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         f = Pawn(2, 2, COLOR_WHITE)
         game.figures.append(f)
@@ -205,7 +204,7 @@ class GameTest(unittest.TestCase):
         self.assertEqual(game.make_move(f, PLAYER_BLACK, "l", True), 0)
 
     def test_make_move_valid_move_m(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         f = Pawn(2, 2, COLOR_WHITE)
         game.figures.append(f)
@@ -214,7 +213,7 @@ class GameTest(unittest.TestCase):
         self.assertEqual(game.make_move(f, PLAYER_WHITE, "m", True), 1)
 
     def test_make_move_valid_move_m_finish(self):
-        game = Game("test")
+        game = Game(MODE_TEST)
         game.figures = []
         f = Pawn(4, 2, COLOR_BLACK)
         game.figures.append(f)

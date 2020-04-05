@@ -46,7 +46,7 @@ class StdioChessTestCase(unittest.TestCase):
         stub_stdin(self, "b")
         stub_stdouts(self)
 
-        game = Game("test")
+        game = Game(consts.MODE_TEST)
         game.figures = []
         f = Pawn(2, 2, consts.COLOR_WHITE)
         game.figures.append(f)
@@ -57,7 +57,7 @@ class StdioChessTestCase(unittest.TestCase):
         stub_stdin(self, "r\nb") #Input r, Inp b
         stub_stdouts(self)
 
-        game = Game("test")
+        game = Game(consts.MODE_TEST)
         game.figures = []
         f = Pawn(2, 2, consts.COLOR_WHITE)
         game.figures.append(f)
@@ -70,7 +70,7 @@ class StdioChessTestCase(unittest.TestCase):
         stub_stdin(self, "m")
         stub_stdouts(self)
 
-        game = Game("test")
+        game = Game(consts.MODE_TEST)
         game.figures = []
         f = Pawn(2, 2, consts.COLOR_WHITE)
         game.figures.append(f)
@@ -81,7 +81,7 @@ class StdioChessTestCase(unittest.TestCase):
         stub_stdin(self, "m")
         stub_stdouts(self)
 
-        game = Game("test")
+        game = Game(consts.MODE_TEST)
         game.figures = []
         f = Pawn(2, 7, consts.COLOR_WHITE)
         game.figures.append(f)
@@ -94,7 +94,7 @@ class StdioChessTestCase(unittest.TestCase):
         stub_stdin(self, "test1234\nb") #Input test1234, Inp b
         stub_stdouts(self)
 
-        game = Game("test")
+        game = Game(consts.MODE_TEST)
         game.figures = []
         f = Pawn(2, 2, consts.COLOR_WHITE)
         game.figures.append(f)
@@ -107,7 +107,7 @@ class StdioChessTestCase(unittest.TestCase):
         stub_stdin(self, "m2\nb") #Input m2 Inp b
         stub_stdouts(self)
 
-        game = Game("test")
+        game = Game(consts.MODE_TEST)
         game.figures = []
         f = Pawn(2, 3, consts.COLOR_WHITE)
         game.figures.append(f)
@@ -118,7 +118,7 @@ class StdioChessTestCase(unittest.TestCase):
 
     def test_quit_game(self):
         stub_stdouts(self)
-        game = Game("test")
+        game = Game(consts.MODE_TEST)
         game.figures = []
 
         game.quit_game()
@@ -131,7 +131,7 @@ class StdioChessTestCase(unittest.TestCase):
         stub_stdin(self, "Der auf Feld 1\nx\nx")
         stub_stdouts(self)
 
-        game = Game("test")
+        game = Game(consts.MODE_TEST)
         game.figures = []
         f = Pawn(2, 3, consts.COLOR_WHITE)
         game.figures.append(f)
@@ -145,7 +145,7 @@ class StdioChessTestCase(unittest.TestCase):
         stub_stdin(self, "A7\nx\nx")
         stub_stdouts(self)
 
-        game = Game("test")
+        game = Game(consts.MODE_TEST)
         game.figures = []
         f = Pawn(2, 3, consts.COLOR_WHITE)
         game.figures.append(f)
@@ -160,7 +160,7 @@ class StdioChessTestCase(unittest.TestCase):
         stub_stdin(self, "B7\nm")
         stub_stdouts(self)
 
-        game = Game("test")
+        game = Game(consts.MODE_TEST)
         game.figures = []
         f = Pawn(2, 7, consts.COLOR_WHITE)
         game.figures.append(f)
@@ -177,7 +177,7 @@ class StdioChessTestCase(unittest.TestCase):
         stub_stdin(self, "Der auf Feld 1\nx\nx")
         stub_stdouts(self)
 
-        game = Game("test")
+        game = Game(consts.MODE_TEST)
         game.figures = []
         f = Pawn(2, 3, consts.COLOR_WHITE)
         game.figures.append(f)
@@ -196,7 +196,7 @@ class StdioChessTestCase(unittest.TestCase):
         stub_stdin(self, "A7\nx\nx")
         stub_stdouts(self)
 
-        game = Game("test")
+        game = Game(consts.MODE_TEST)
         game.figures = []
         f = Pawn(2, 3, consts.COLOR_WHITE)
         game.figures.append(f)
@@ -211,7 +211,7 @@ class StdioChessTestCase(unittest.TestCase):
         stub_stdin(self, "B7\nm")
         stub_stdouts(self)
 
-        game = Game("test")
+        game = Game(consts.MODE_TEST)
         game.figures = []
         f = Pawn(2, 7, consts.COLOR_WHITE)
         game.figures.append(f)

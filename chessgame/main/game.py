@@ -31,7 +31,7 @@ class Game:
             self.start_ai_game()
         elif game_mode == consts.MODE_MULTI:
             self.start_multiplayer_game()
-        elif game_mode != "test":
+        elif game_mode != consts.MODE_TEST:
             while True:
                 print("Welche Speicherdatei möchtest du laden? (Zurück mit b)")
                 save_file = input("Eingabe: ").lower()
@@ -234,14 +234,16 @@ class Game:
                 4 if m2 (move forward 2 spaces) wasn't possible
 
         """
+        """
         move_vector = {
             consts.MV_FWD1  : {consts.COORD_X :  0, consts.COORD_Y : 1},
             consts.MV_FWD2  : {consts.COORD_X :  0, consts.COORD_Y : 2},
             consts.MV_LEFT  : {consts.COORD_X : -1, consts.COORD_Y : 1},
             consts.MV_RIGHT : {consts.COORD_X :  1, consts.COORD_Y : 1}
         }
+        """
         # invalid input
-        if move_input not in move_vector:
+        if move_input not in consts.MOVE_VECTOR:
             return 3
 
         # Sets the right sign for the movement schemes
@@ -249,14 +251,14 @@ class Game:
         if player == consts.PLAYER_BLACK:
             sign = -1
 
-        new_x = figure.get_pos_x() + move_vector[move_input][consts.COORD_X]
-        new_y = figure.get_pos_y() + move_vector[move_input][consts.COORD_Y] * sign      # *sign -> right direction for black or white
+        new_x = figure.get_pos_x() + consts.MOVE_VECTOR[move_input][consts.COORD_X]
+        new_y = figure.get_pos_y() + consts.MOVE_VECTOR[move_input][consts.COORD_Y] * sign      # *sign -> right direction for black or white
 
         target_occupied = self.is_occupied(new_x, new_y)
 
         if move_input == consts.MV_FWD2 and target_occupied is None:
-            target_occupied = self.is_occupied(figure.get_pos_x() + move_vector[consts.MV_FWD1][consts.COORD_X],
-                                               figure.get_pos_y() + move_vector[consts.MV_FWD1][consts.COORD_Y] * sign)
+            target_occupied = self.is_occupied(figure.get_pos_x() + consts.MOVE_VECTOR[consts.MV_FWD1][consts.COORD_X],
+                                               figure.get_pos_y() + consts.MOVE_VECTOR[consts.MV_FWD1][consts.COORD_Y] * sign)
 
         if (move_input == consts.MV_FWD2 and starting_position) or move_input != consts.MV_FWD2:
             response = figure.check_move_result(new_x, new_y, target_occupied)

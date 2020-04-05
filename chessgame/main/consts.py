@@ -12,6 +12,7 @@ PLAYER_BLACK = "Schwarz"
 
 MODE_KI = "ki"
 MODE_MULTI = "m"
+MODE_TEST = "t"
 
 ACT_NEW = "n"
 ACT_LOAD = "l"
@@ -26,3 +27,10 @@ MV_RIGHT = "r"
 
 COORD_X = "x"
 COORD_Y = "y"
+
+MOVE_VECTOR = {
+    MV_FWD1  : {COORD_X :  0, COORD_Y : 1},
+    MV_FWD2  : {COORD_X :  0, COORD_Y : 2},
+    MV_LEFT  : {COORD_X : -1, COORD_Y : 1},
+    MV_RIGHT : {COORD_X :  1, COORD_Y : 1}
+}
