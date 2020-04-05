@@ -36,7 +36,7 @@ class Game:
                 print("Welche Speicherdatei möchtest du laden? (Zurück mit b)")
                 save_file = input("Eingabe: ").lower()
                 if save_file == consts.ACT_BACK:
-                    return
+                    break
                 save_object = Save(save_file=save_file, game_object=None)
                 save_load = save_object.load_game()
                 if save_load is not None:

@@ -47,6 +47,7 @@ class Save:
         try:
             file = open(self.path+self.save_file, "r")
             file_lines = file.readlines()
+            file.close()
             save_load = []
             figures = []
             for counter, line in enumerate(file_lines):
@@ -54,7 +55,6 @@ class Save:
                     if consts.MODE_AI not in line and consts.MODE_MULTI not in line and consts.MODE_TEST not in line:
                         print(f"\nFehler: Datei '{self.save_file}' scheint "
                               f"einen fehlerhaften Spielmodi in Zeile {counter+1} zu haben.\n")
-                        file.close()
                         return None
                     save_load.append(line.replace("\n", ""))
                 else:
@@ -62,21 +62,18 @@ class Save:
                     if data[0] != "w" and data[0] != "b":
                         print(f"\nFehler: Datei '{self.save_file}' scheint "
                               f"fehlerhafte Farben in Zeile {counter+1} zu haben.\n")
-                        file.close()
                         return None
                     cords = data[1].split("#")
                     if int(cords[0]) < 1 or int(cords[0]) > 8 or int(cords[1]) < 1 or int(cords[1]) > 8:
                         print(f"\nFehler: Datei '{self.save_file}' scheint "
                               f"fehlerhafte Koordinaten in Zeile {counter+1} zu haben.\n")
-                        file.close()
                         return None
                     figures.append(Pawn(pos_x=int(cords[0]), pos_y=int(cords[1]), color=data[0]))
             save_load.append(figures)
-            file.close()
             return save_load
         except FileNotFoundError:
             print(f"\nFehler: konnte '{self.save_file}' nicht finden.\n")
-        except TypeError:
+        except ValueError:
             print(f"\nFehler: Datei '{self.save_file}' scheint fehlerhafte Koordinaten zu haben.")
         return None
 
