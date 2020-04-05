@@ -90,14 +90,6 @@ class Game:
                         self.quit_game()
                         return
 
-    def quit_game(self):
-        """
-        Prints end game statement, sets end_game True
-        """
-        print("\nBeende das Spiel...")
-        time.sleep(1)
-        self.end_game = True
-
     def start_multiplayer_game(self):
         """
         Instantiates multiplayer game:
@@ -282,6 +274,14 @@ class Game:
         """
         self.update_display()
         print(f"Spieler {color} hat gewonnen!")
+        self.end_game = True
+
+    def quit_game(self):
+        """
+        Prints end game statement, sets end_game True
+        """
+        print("\nBeende das Spiel...")
+        time.sleep(1)
         self.end_game = True
 
     def is_occupied(self, pos_x, pos_y):
