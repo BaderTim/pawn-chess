@@ -7,22 +7,24 @@ from chessgame.main.consts import COLOR_WHITE
 
 
 class Pawn(Figure):
-    """Pawn figure for the chess game
+    """
+    Pawn figure for the chess game
     """
 
-    def move_to(self, new_x, new_y, is_occupied):
+    def check_move_result(self, new_x, new_y, is_occupied):
         """
         Checks whether move can be made
 
-        Arguments:
-            new_x {int} -- new position
-            new_y {int} -- new position
-            is_occupied {None or COLOR} -- is new position occupied?
+        Args:
+            new_x {int}: new position
+            new_y {int}: new position
+            is_occupied {None or COLOR}: is new position occupied?
 
         Return:
-            0 if move can not be made
-            1 if move can be made
-            2 if game will be won
+            response {int}:
+                0 if move can not be made
+                1 if move can be made
+                2 if game will be won
         """
 
         if self.color == COLOR_WHITE:
@@ -53,5 +55,8 @@ class Pawn(Figure):
     def to_string(self):
         """
         Converts all data of the Pawn to a string
+
+        Returns:
+            pawn_string {String}: all relevant data of the pawn
         """
         return f"Position: x = {self.pos_x} , y = {self.pos_y}\nColor: {self.color}"

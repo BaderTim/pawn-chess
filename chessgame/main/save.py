@@ -1,5 +1,5 @@
 """
-save file class
+Game state saving module
 """
 
 import os
@@ -9,15 +9,17 @@ from chessgame.main.pawn import Pawn
 
 class Save:
     """
-    save file class
+    Game state saving module
     """
 
     def __init__(self, game_object, save_file):
         """
-        Argument:
-            save_file --> None if new save file
-                      --> tries to load if given
-            game_object --> Game object to save
+        Constructor
+
+        Args:
+        game_object {Game}: the game that will be saved
+        save_file {String}: Name of an existing save file
+            None if you want to create a new save file
         """
         self.path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "\\saved_files\\"
 
@@ -37,8 +39,10 @@ class Save:
 
     def load_game(self):
         """
-        loads save file
-        :returns game mode and figures
+        Loads game from a file
+        
+        Returns:
+            save_load {list}: list containing game mode and figures
         """
         try:
             file = open(self.path+self.save_file, "r")
@@ -74,7 +78,7 @@ class Save:
 
     def save_game(self):
         """
-        saves file
+        Saves the game to a file
         """
         file = open(self.path+self.save_file, "w+")
         file.write(self.game.game_mode+"\n")

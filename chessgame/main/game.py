@@ -17,7 +17,9 @@ class Game:
     def __init__(self, game_mode):
         """
         Constructor
-        Initiates game modes
+
+        Args:
+            game_mode {String}: Selects the game mode from consts module
         """
         self.end_game = False
         self.game_mode = game_mode
@@ -49,7 +51,10 @@ class Game:
 
     def start_game(self, game_mode):
         """
-        Starts beginning of the game
+        Handles beginning of the game
+
+        Args:
+            game_mode {String}: Selects the game mode from consts module
         """
         if game_mode == consts.MODE_MULTI:
             print("Starte mehrspieler Spiel...")
@@ -70,6 +75,9 @@ class Game:
     def save_game(self, user_input):
         """
         Handles saving and closing the game
+
+        Args:
+            user_input {String}: Select to close or save game ('s' or 'x')
         """
         if user_input == consts.ACT_SAVE:
             Save(game_object=self, save_file=None)
@@ -96,8 +104,6 @@ class Game:
         --> uses save file if not None
         --> Manages score and turn changes
         --> Saves and updates display after every turn
-
-        Argument: figures from saved game state
         """
         self.start_game(consts.MODE_MULTI)
 
@@ -124,8 +130,6 @@ class Game:
         --> uses save file if not None
         --> Manages score
         --> Saves and updates display after ever turn
-
-        Argument: figures from saved game state
         """
         self.start_game(consts.MODE_KI)
 
@@ -168,16 +172,15 @@ class Game:
 
     def move_handler(self, figure, player, user_input, move_input=None):
         """
-        Arguments:
-            figure --> selected figure
-            player --> White or Black
-            user_input --> raw user input for text response
+        Handles movement of figures, e.g. wins and hits
 
-        Function:
-            handles movement of figures, e.g. wins and hits
+        Arguments:
+            figure {Pawn}: selected figure
+            player {String}: 'White' or 'Black'
+            user_input {String}: raw user input for text response
 
         Return:
-            player --> either white or black, changes after each turn
+            player {String}: either white or black, changes after each turn
         """
         while True:
             # Checks if the figure is in starting position
@@ -211,7 +214,22 @@ class Game:
 
     def make_move(self, figure, player, move_input, starting_position):
         """
-        Makes Move
+        Moves a figure to a new position, if possible
+
+        Args:
+            figure {Pawn}: selected figure
+            player {String}: active player
+            move_input {String}: selected move ('m2','m','l','r')
+            starting_position {int}: y-coordinate of the initial position of the figure
+        
+        Returns:
+            response {int}:
+                0 if move wasn't made
+                1 if move was made
+                2 if game has been won
+                3 if the input is invalid
+                4 if m2 (move forward 2 spaces) wasn't possible
+
         """
         move_vector = {
             consts.MV_FWD1  : {consts.COORD_X :  0, consts.COORD_Y : 1},
@@ -238,7 +256,7 @@ class Game:
                                                figure.get_pos_y() + move_vector[consts.MV_FWD1][consts.COORD_Y] * sign)
 
         if (move_input == consts.MV_FWD2 and starting_position) or move_input != consts.MV_FWD2:
-            response = figure.move_to(new_x, new_y, target_occupied)
+            response = figure.check_move_result(new_x, new_y, target_occupied)
 
             if response == 1:
                 self.check_for_hit(new_x, new_y, player)
@@ -252,33 +270,40 @@ class Game:
 
         return response
 
-    def check_for_hit(self, pos_x, pos_y, color):
+    def check_for_hit(self, pos_x, pos_y, player):
         """
         gets coordinates from figure which made the move
         checks if it hit an enemy figure and removes it if so
+
+        Args:
+            pos_x {int}: x-coordinate of the position to be checked
+            pos_y {int}: y-coordinate of the position to be checked
+            player {String}: color of the active player
         """
         figure = self.get_figure(f"{pos_x}::{pos_y}")
         if figure is None:
             return
-        if color == consts.PLAYER_WHITE and figure.color == consts.COLOR_BLACK:
+        if player == consts.PLAYER_WHITE and figure.color == consts.COLOR_BLACK:
             self.figures.remove(figure)
             print("Weißer Bauer schlägt schwarzen Bauer.\n")
-        elif color == consts.PLAYER_BLACK and figure.color == consts.COLOR_WHITE:
+        elif player == consts.PLAYER_BLACK and figure.color == consts.COLOR_WHITE:
             self.figures.remove(figure)
             print("Schwarzer Bauer schlägt weißen Bauer.\n")
 
-    def win(self, color):
+    def win(self, player):
         """
         Stops game thread by exiting main loop
-        selects color as winner
+        selects the current player as winner
+
+        Args:
+            player {String}: the currently active player
         """
-        self.update_display()
-        print(f"Spieler {color} hat gewonnen!")
+        print(f"Spieler {player} hat gewonnen!")
         self.end_game = True
 
     def quit_game(self):
         """
-        Prints end game statement, sets end_game True
+        Prints end game statement, sets end_game to True
         """
         print("\nBeende das Spiel...")
         time.sleep(1)
@@ -287,12 +312,12 @@ class Game:
     def is_occupied(self, pos_x, pos_y):
         """
         Arguments:
-             pos_x as int
-             pos_y as int
+             pos_x {int}: x-coordinate of the space to be checked
+             pos_y {int}: y-coordinate of the space to be checked
 
         Returns:
-            color if figure is existent
-            otherwise None
+            color {String}: color of the pawn if the space is occupied
+            None if the space is empty
         """
         figure = self.get_figure(f"{pos_x}::{pos_y}")
         if figure is not None:
@@ -301,10 +326,14 @@ class Game:
 
     def get_figure(self, user_input):
         """
-        Arguments: self, coordinates from user interaction as string
-                    alternative user_input comes with '::' in the middle,
-                        used by is_occupied and check_for_hit method with exact coordinates
-        :return figure if found, otherwise None
+        Returns figure at the space selected with the user input
+
+        Arguments: 
+            user_input {String}: input selecting a space (e.g 'A2' / '1::2')
+
+        Returns:
+            figure {Pawn}: The pawn standing at the selected position
+            None if the input is invalid or no figure was found
         """
 
         # alternative use by is_occupied() and check_for_hit()
@@ -330,7 +359,7 @@ class Game:
 
     def update_ai_pawns(self):
         '''
-        Updates pawns of the AI player
+        Updates the list of pawns of the AI player
         '''
         self.ai_pawns = []
         for figure in self.figures:
@@ -339,7 +368,10 @@ class Game:
 
     def ai_moves(self):
         '''
-        Returns a dict with all possible moves and their confidence values [0;100]
+        Creates a dictionary containing all currently possible moves and their confidence values
+
+        Returns:
+            movedict {dict}: All currently possible moves with respective confidence values
         '''
         self.update_ai_pawns()
         possible_moves = {}
@@ -378,13 +410,6 @@ class Game:
     def update_display(self):
         """
         Updates Graphic Display
-
-        Argument: array with figure objects
-
-        Function:
-            -generates 1d table array
-            -fills array with figures
-            -outputs array to console
         """
         table = []
         # generates table array --> 1D array to describe chess field
@@ -403,7 +428,7 @@ class Game:
         for _, pos in enumerate(table):
             table_output += f"{pos}  "
             line_space += 1
-            # creates a line space after every 8 fields
+            # creates a line space after every 8 spaces
             if line_space == 8:
                 left_side_y = coordinate_system_y - 1
                 if left_side_y > 0:
@@ -417,16 +442,19 @@ class Game:
 
     def check_last_figure(self, player):
         '''
-        Checks if the last captured figure was the last of the opponent
+        Checks if the last hit figure was the last remaining figure of the opponent
+
+        Args:
+            player {String}: currently active player
         '''
         counter_figures = 0
         for _, pawn in enumerate(self.figures, 1):
             if player == consts.PLAYER_WHITE:
-                enemy_color = consts.COLOR_BLACK
+                opponent_color = consts.COLOR_BLACK
             else:
-                enemy_color = consts.COLOR_WHITE
+                opponent_color = consts.COLOR_WHITE
 
-            if pawn.color == enemy_color:
+            if pawn.color == opponent_color:
                 counter_figures += 1
 
         if counter_figures <= 0:
@@ -435,7 +463,13 @@ class Game:
     @staticmethod
     def ai_decide(movelist: list):
         '''
-        Decides which move will be executed based on confidence values
+        Decides which move will be executed by the ai based on confidence values
+
+        Args:
+            movelist {list}: list of the best possible moves for each pawn ([[POSITION1,MOVE1,CONFIDENCE1],[...]...])
+
+        Returns:
+            move {list}: list containing the best overall possible move ([POSITION,MOVE,CONFIDENCE])
         '''
         max_val = 0
         i = len(movelist) -1
@@ -451,18 +485,30 @@ class Game:
         return movelist[0]
 
     @staticmethod
-    def get_best_move(movedict):
+    def get_best_move(moves):
         '''
-        gets the best possible move for a specific pawn
+        Calculates the best possible move for a specific pawn
+
+        Args:
+            moves {tuple}: Tuple containing all possible moves for a pawn (POSITION, {M2: CONF, M: CONF, L: CONF, R: CONF})
+        
+        Returns:
+            best_move {list}: Best possible move for a pawn ([POSITION,MOVE,CONFIDENCE])
         '''
-        max_key = max(movedict[1], key=lambda k: movedict[1][k])
-        ret_val = [movedict[0], max_key, movedict[1][max_key]]
+        max_key = max(moves[1], key=lambda k: moves[1][k])
+        ret_val = [moves[0], max_key, moves[1][max_key]]
         return ret_val
 
     @staticmethod
     def toggle_player(player):
         """
-        changes turn
+        Switches the active player to the opponent
+
+        Args:
+            player {String}: currently active player
+        
+        Returns:
+            player {String}: opponent of the currently active player
         """
         if player == consts.PLAYER_WHITE:
             return consts.PLAYER_BLACK
@@ -471,7 +517,10 @@ class Game:
     @staticmethod
     def print_move_options(starting_position):
         """
-        output of move options
+        Prints the moves available to the player
+
+        Args:
+            starting_position {int}: y-coordinateof the active player's starting row
         """
         text = "\nWas möchtest du tun?\n"
         if starting_position:
