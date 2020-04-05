@@ -76,9 +76,7 @@ class Game:
             self.saved = True
         if user_input == consts.ACT_STOP:
             if self.saved:
-                print("\nBeende mehrspieler Spiel...")
-                time.sleep(1)
-                self.end_game = True
+                self.quit_game()
             else:
                 print("Möchtest du vor dem beenden deinen Spielstand speichern?\nSpeichern 's', Beenden 'x'")
                 save_input = input("Eingabe: ").lower()
@@ -86,11 +84,19 @@ class Game:
                     if save_input == consts.ACT_SAVE:
                         Save(game_object=self, save_file=None)
                         self.saved = True
-                        self.end_game = True
+                        self.quit_game()
                         break
                     if save_input == consts.ACT_STOP:
-                        self.end_game = True
+                        self.quit_game()
                         return
+
+    def quit_game(self):
+        """
+        Prints end game statement, sets end_game True
+        """
+        print("\nBeende das Spiel...")
+        time.sleep(1)
+        self.end_game = True
 
     def start_multiplayer_game(self):
         """
