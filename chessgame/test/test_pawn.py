@@ -1,10 +1,7 @@
 # pylint: disable=C
 import unittest
 from chessgame.main.pawn import Pawn
-from chessgame.main.consts import GAME_SIZE
-from chessgame.main.consts import COLOR_BLACK
-from chessgame.main.consts import COLOR_WHITE
-
+from chessgame.main.consts import GAME_SIZE, COLOR_BLACK, COLOR_WHITE
 
 class PawnTest(unittest.TestCase):
 
