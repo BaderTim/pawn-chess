@@ -172,3 +172,54 @@ class StdioChessTestCase(unittest.TestCase):
         game.start_multiplayer_game()
         output = sys.stdout.getvalue()
         self.assertIn("Spieler Weiß hat gewonnen!", output)
+
+    def test_start_ai_input_invalid(self):
+        stub_stdin(self, "Der auf Feld 1\nx\nx")
+        stub_stdouts(self)
+
+        game = Game("test")
+        game.figures = []
+        f = Pawn(2, 3, consts.COLOR_WHITE)
+        game.figures.append(f)
+        f2 = Pawn(7, 1, consts.COLOR_BLACK)
+        game.figures.append(f2)
+        f2 = Pawn(7, 3, consts.COLOR_BLACK)
+        game.figures.append(f2)
+
+        game.start_ai_game()
+        output = sys.stdout.getvalue()
+        self.assertIn("\nSpieler Weiß ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)", output)
+        self.assertIn("\nSpieler Weiß ist am Zug.", output)
+        self.assertIn("Falsche Eingabe. Bitte verwende das richtige Format (Bsp A4).\n", output)
+
+    def test_start_ai_input_invalid_player(self):
+        stub_stdin(self, "A7\nx\nx")
+        stub_stdouts(self)
+
+        game = Game("test")
+        game.figures = []
+        f = Pawn(2, 3, consts.COLOR_WHITE)
+        game.figures.append(f)
+        f2 = Pawn(1, 7, consts.COLOR_BLACK)
+        game.figures.append(f2)
+
+        game.start_ai_game()
+        output = sys.stdout.getvalue()
+        self.assertIn("Du kannst nicht die Figuren deines Gegners steuern.", output)
+
+    def test_start_ai_input_valid(self):
+        stub_stdin(self, "B7\nm")
+        stub_stdouts(self)
+
+        game = Game("test")
+        game.figures = []
+        f = Pawn(2, 7, consts.COLOR_WHITE)
+        game.figures.append(f)
+        f2 = Pawn(1, 7, consts.COLOR_BLACK)
+        game.figures.append(f2)
+        f3 = Pawn(2, 2, consts.COLOR_WHITE)
+        game.figures.append(f3)
+
+        game.start_ai_game()
+        output = sys.stdout.getvalue()
+        self.assertIn("Spieler Weiß hat gewonnen!", output)
