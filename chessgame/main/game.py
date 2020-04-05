@@ -224,7 +224,7 @@ class Game:
             player {String}: active player
             move_input {String}: selected move ('m2','m','l','r')
             starting_position {int}: y-coordinate of the initial position of the figure
-        
+
         Returns:
             response {int}:
                 0 if move wasn't made
@@ -336,7 +336,7 @@ class Game:
         """
         Returns figure at the space selected with the user input
 
-        Arguments: 
+        Arguments:
             user_input {String}: input selecting a space (e.g 'A2' / '1::2')
 
         Returns:
@@ -499,7 +499,7 @@ class Game:
 
         Args:
             moves {tuple}: Tuple containing all possible moves for a pawn (POSITION, {M2: CONF, M: CONF, L: CONF, R: CONF})
-        
+
         Returns:
             best_move {list}: Best possible move for a pawn ([POSITION,MOVE,CONFIDENCE])
         '''
