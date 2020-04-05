@@ -11,7 +11,7 @@ class Figure:
     def __init__(self, pos_x, pos_y, color):
         """
         Constructor
-        
+
         Args:
             pos_x {int}: start pos of pawn
             pos_y {int}: start pos of pawn
