@@ -1,10 +1,12 @@
 #pylint: disable=C
 import unittest
+import chessgame.test.test_game_std as std
+import sys
 from chessgame.main.save import Save
 from chessgame.main.consts import COLOR_BLACK, COLOR_WHITE, MODE_TEST, ACT_LOAD
 from chessgame.main.pawn import Pawn
 from chessgame.main.game import Game
-import chessgame.test.test_game_std as std
+
 
 class SaveTest(unittest.TestCase):
 
@@ -38,3 +40,12 @@ class SaveTest(unittest.TestCase):
         for idx, figure in enumerate(testlist, 0):
             self.assertEqual(game.figures[idx].to_string(), figure.to_string())
         self.assertEqual(game.game_mode, test_game_mode)
+
+        del game
+        self.doCleanups()
+        std.stub_stdouts(self)
+        game = Game(MODE_TEST)
+        save = Save(game, "nghrehugjlhgyduilgfvrawu7eztr5wsdfb")
+        save.load_game()
+        output = sys.stdout.getvalue()
+        self.assertIn("Fehler: konnte 'nghrehugjlhgyduilgfvrawu7eztr5wsdfb.txt' nicht finden.",output)

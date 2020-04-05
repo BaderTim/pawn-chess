@@ -76,10 +76,8 @@ class Save:
             return save_load
         except FileNotFoundError:
             print(f"\nFehler: konnte '{self.save_file}' nicht finden.\n")
-            file.close()
         except TypeError:
             print(f"\nFehler: Datei '{self.save_file}' scheint fehlerhafte Koordinaten zu haben.")
-        file.close()
         return None
 
     def save_game(self):
