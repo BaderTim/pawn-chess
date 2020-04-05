@@ -126,6 +126,7 @@ class StdioChessTestCase(unittest.TestCase):
         output = sys.stdout.getvalue()
         self.assertIn("\nBeende das Spiel...", output)
         self.assertTrue(game.end_game)
+    
     """
     def test_game_init_input_b(self):
         stub_stdin(self, "b")
