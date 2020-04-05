@@ -126,14 +126,49 @@ class StdioChessTestCase(unittest.TestCase):
         output = sys.stdout.getvalue()
         self.assertIn("\nBeende das Spiel...", output)
         self.assertTrue(game.end_game)
-    
-    """
-    def test_game_init_input_b(self):
-        stub_stdin(self, "b")
+
+    def test_start_multi_input_invalid(self):
+        stub_stdin(self, "Der auf Feld 1\nx\nx")
         stub_stdouts(self)
 
-        game = Game(consts.ACT_LOAD)
+        game = Game("test")
+        game.figures = []
+        f = Pawn(2, 3, consts.COLOR_WHITE)
+        game.figures.append(f)
 
-        #output = sys.stdout.getvalue()
-        self.assertIsNone(game) 
-    """
+        game.start_multiplayer_game()
+        output = sys.stdout.getvalue()
+        self.assertIn("\nSpieler Weiß ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)", output)
+        self.assertIn("Falsche Eingabe. Bitte verwende das richtige Format (Bsp A4).\n", output)
+
+    def test_start_multi_input_invalid_player(self):
+        stub_stdin(self, "A7\nx\nx")
+        stub_stdouts(self)
+
+        game = Game("test")
+        game.figures = []
+        f = Pawn(2, 3, consts.COLOR_WHITE)
+        game.figures.append(f)
+        f2 = Pawn(1, 7, consts.COLOR_BLACK)
+        game.figures.append(f2)
+
+        game.start_multiplayer_game()
+        output = sys.stdout.getvalue()
+        self.assertIn("Du kannst nicht die Figuren deines Gegners steuern.", output)
+
+    def test_start_multi_input_valid(self):
+        stub_stdin(self, "B7\nm")
+        stub_stdouts(self)
+
+        game = Game("test")
+        game.figures = []
+        f = Pawn(2, 7, consts.COLOR_WHITE)
+        game.figures.append(f)
+        f2 = Pawn(1, 7, consts.COLOR_BLACK)
+        game.figures.append(f2)
+        f3 = Pawn(2, 2, consts.COLOR_WHITE)
+        game.figures.append(f3)
+
+        game.start_multiplayer_game()
+        output = sys.stdout.getvalue()
+        self.assertIn("Spieler Weiß hat gewonnen!", output)
