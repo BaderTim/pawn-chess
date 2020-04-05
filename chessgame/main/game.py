@@ -45,8 +45,11 @@ class Game:
                         self.game_mode = consts.MODE_MULTI
                         self.start_multiplayer_game()
                         break
-                    self.game_mode = consts.MODE_KI
-                    self.start_ai_game()
+                    if save_load[0] == consts.MODE_KI:
+                        self.game_mode = consts.MODE_KI
+                        self.start_ai_game()
+                    if save_load[0] == consts.MODE_TEST:
+                        self.game_mode = consts.MODE_TEST
                     break
 
     def start_game(self, game_mode):

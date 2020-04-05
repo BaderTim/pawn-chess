@@ -2,8 +2,7 @@
 Pawn figure for the chess game
 """
 from chessgame.main.figure import Figure
-from chessgame.main.consts import COLOR_BLACK
-from chessgame.main.consts import COLOR_WHITE
+from chessgame.main.consts import COLOR_BLACK, COLOR_WHITE
 
 
 class Pawn(Figure):

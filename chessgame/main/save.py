@@ -40,7 +40,7 @@ class Save:
     def load_game(self):
         """
         Loads game from a file
-        
+
         Returns:
             save_load {list}: list containing game mode and figures
         """
@@ -51,9 +51,10 @@ class Save:
             figures = []
             for counter, line in enumerate(file_lines):
                 if counter == 0:
-                    if consts.MODE_KI not in line and consts.MODE_MULTI not in line:
+                    if consts.MODE_KI not in line and consts.MODE_MULTI not in line and consts.MODE_TEST not in line:
                         print(f"\nFehler: Datei '{self.save_file}' scheint "
                               f"einen fehlerhaften Spielmodi in Zeile {counter+1} zu haben.\n")
+                        file.close()
                         return None
                     save_load.append(line.replace("\n", ""))
                 else:
@@ -61,19 +62,24 @@ class Save:
                     if data[0] != "w" and data[0] != "b":
                         print(f"\nFehler: Datei '{self.save_file}' scheint "
                               f"fehlerhafte Farben in Zeile {counter+1} zu haben.\n")
+                        file.close()
                         return None
                     cords = data[1].split("#")
                     if int(cords[0]) < 1 or int(cords[0]) > 8 or int(cords[1]) < 1 or int(cords[1]) > 8:
                         print(f"\nFehler: Datei '{self.save_file}' scheint "
                               f"fehlerhafte Koordinaten in Zeile {counter+1} zu haben.\n")
+                        file.close()
                         return None
                     figures.append(Pawn(pos_x=int(cords[0]), pos_y=int(cords[1]), color=data[0]))
             save_load.append(figures)
+            file.close()
             return save_load
         except FileNotFoundError:
             print(f"\nFehler: konnte '{self.save_file}' nicht finden.\n")
+            file.close()
         except TypeError:
             print(f"\nFehler: Datei '{self.save_file}' scheint fehlerhafte Koordinaten zu haben.")
+        file.close()
         return None
 
     def save_game(self):
