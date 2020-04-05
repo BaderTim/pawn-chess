@@ -103,7 +103,7 @@ class StdioChessTestCase(unittest.TestCase):
         output = sys.stdout.getvalue()
         self.assertIn("Falsche Eingabe.\n", output)
 
-    def test_move_handler_input_valid_move_m2(self):
+    def test_move_handler_input_invalid_move_m2(self):
         stub_stdin(self, "m2\nb") #Input m2 Inp b
         stub_stdouts(self)
 
