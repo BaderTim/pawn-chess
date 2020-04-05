@@ -514,7 +514,7 @@ class Game:
 
         Args:
             player {String}: currently active player
-        
+
         Returns:
             player {String}: opponent of the currently active player
         """
