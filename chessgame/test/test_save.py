@@ -41,8 +41,7 @@ class SaveTest(unittest.TestCase):
             self.assertEqual(game.figures[idx].to_string(), figure.to_string())
         self.assertEqual(game.game_mode, test_game_mode)
 
-        del game
-        self.doCleanups()
+    def test_file_not_found(self):
         std.stub_stdouts(self)
         game = Game(MODE_TEST)
         save = Save(game, "nghrehugjlhgyduilgfvrawu7eztr5wsdfb")
