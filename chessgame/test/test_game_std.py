@@ -115,3 +115,14 @@ class StdioChessTestCase(unittest.TestCase):
 
         output = sys.stdout.getvalue()
         self.assertIn("m2 nicht zulässig.\n", output)
+
+    def test_quit_game(self):
+        stub_stdouts(self)
+        game = Game("test")
+        game.figures = []
+
+        game.quit_game()
+
+        output = sys.stdout.getvalue()
+        self.assertIn("\nBeende das Spiel...", output)
+        self.assertTrue(game.end_game)
