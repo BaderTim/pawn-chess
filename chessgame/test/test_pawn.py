@@ -77,6 +77,7 @@ class PawnTest(unittest.TestCase):
     def test_move_allowed_b(self):
         f = Pawn(2, 5, COLOR_BLACK)
         self.assertEqual(f.move_to(2, 4, None), 1)
+        self.assertEqual(f.move_to(2,3,None),1)
         f = Pawn(2, 4, COLOR_BLACK)
         self.assertEqual(f.move_to(3, 3, COLOR_WHITE), 1)
         f = Pawn(2, 3, COLOR_BLACK)
@@ -87,6 +88,9 @@ class PawnTest(unittest.TestCase):
         self.assertEqual(f.move_to(3, 4, None), 1)
         self.assertEqual(f.move_to(4, 4, COLOR_BLACK), 1)
         self.assertEqual(f.move_to(2, 4, COLOR_BLACK), 1)
+
+        f = Pawn(5,5,COLOR_WHITE)
+        self.assertEqual(f.move_to(5, 7, None), 1)
 
     def test_get_methods(self):
         f = Pawn(4, 2, COLOR_WHITE)
@@ -136,3 +140,13 @@ class PawnTest(unittest.TestCase):
         self.assertEqual(f.get_pos_x(), 6)
         self.assertEqual(f.get_pos_y(), 5)
         self.assertEqual(f.get_color(), COLOR_BLACK)
+    
+    def test_set_methods(self):
+        f = Pawn(7,2,COLOR_WHITE)
+        f.set_position(5,5)
+        self.assertEqual(f.get_position(),(5,5))
+
+    def test_to_string(self):
+        f = Pawn(3,4,COLOR_BLACK)
+        ret_string = f"Position: x = 3 , y = 4\nColor: {COLOR_BLACK}"
+        self.assertEqual(f.to_string(), ret_string)
