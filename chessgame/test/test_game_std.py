@@ -41,7 +41,7 @@ class StringIO(io.StringIO):
 
 
 class StdioChessTestCase(unittest.TestCase):
-    
+
     def test_move_handler_input_b(self):
         stub_stdin(self, "b")
         stub_stdouts(self)
@@ -222,6 +222,25 @@ class StdioChessTestCase(unittest.TestCase):
         game.start_ai_game()
         output = sys.stdout.getvalue()
         self.assertIn("Spieler Weiß hat gewonnen!", output)
+
+    def test_start_ai_input_ai_move(self):
+        stub_stdin(self, "C3\nm\nx\nx")
+        stub_stdouts(self)
+
+        game = Game(consts.MODE_TEST)
+        game.figures = []
+        f = Pawn(3, 3, consts.COLOR_WHITE)
+        game.figures.append(f)
+        f2 = Pawn(2, 7, consts.COLOR_BLACK)
+        game.figures.append(f2)
+        f3 = Pawn(2, 2, consts.COLOR_WHITE)
+        game.figures.append(f3)
+
+        game.start_ai_game()
+        output = sys.stdout.getvalue()
+
+        self.assertIn("\nSpieler Schwarz ist am Zug.", output)
+        self.assertIn("\nSpieler Schwarz bewegt seinen Bauer von 2::7 nach 2::5", output)
 
     def test_save_game_input_s_x(self):
         # input s
