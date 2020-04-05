@@ -141,7 +141,6 @@ class Game:
                 user_input = input("Eingabe: ").lower()
                 self.save_game(user_input)
                 if user_input not in (consts.ACT_SAVE, consts.ACT_STOP):
-                    print(f"\nSpieler {player} ist am Zug.")
                     figure = self.get_figure(user_input)
                     self.saved = False
                     if figure is None:
@@ -233,14 +232,6 @@ class Game:
                 3 if the input is invalid
                 4 if m2 (move forward 2 spaces) wasn't possible
 
-        """
-        """
-        move_vector = {
-            consts.MV_FWD1  : {consts.COORD_X :  0, consts.COORD_Y : 1},
-            consts.MV_FWD2  : {consts.COORD_X :  0, consts.COORD_Y : 2},
-            consts.MV_LEFT  : {consts.COORD_X : -1, consts.COORD_Y : 1},
-            consts.MV_RIGHT : {consts.COORD_X :  1, consts.COORD_Y : 1}
-        }
         """
         # invalid input
         if move_input not in consts.MOVE_VECTOR:

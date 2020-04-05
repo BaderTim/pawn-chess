@@ -189,7 +189,6 @@ class StdioChessTestCase(unittest.TestCase):
         game.start_ai_game()
         output = sys.stdout.getvalue()
         self.assertIn("\nSpieler Weiß ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)", output)
-        self.assertIn("\nSpieler Weiß ist am Zug.", output)
         self.assertIn("Falsche Eingabe. Bitte verwende das richtige Format (Bsp A4).\n", output)
 
     def test_start_ai_input_invalid_player(self):
