@@ -4,8 +4,8 @@ Consts for chess game
 
 GAME_SIZE = 8
 
-COLOR_WHITE = 'w'
-COLOR_BLACK = 'b'
+COLOR_WHITE = "w"
+COLOR_BLACK = "b"
 
 PLAYER_WHITE = "Weiß"
 PLAYER_BLACK = "Schwarz"

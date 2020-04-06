@@ -60,7 +60,7 @@ class SaveTest(unittest.TestCase):
         file.close()
         
         game = Game(MODE_TEST)
-        save = Save(game, 'test_falsify_mode.txt')
+        save = Save(game, "test_falsify_mode.txt")
         save.load_game()
         output = sys.stdout.getvalue()
         self.assertIn("Fehler: Datei 'test_falsify_mode.txt' scheint einen fehlerhaften Spielmodi in Zeile 1 zu haben.",output)
@@ -73,7 +73,7 @@ class SaveTest(unittest.TestCase):
         file.close()
         
         game = Game(MODE_TEST)
-        save = Save(game, 'test_falsify_color.txt')
+        save = Save(game, "test_falsify_color.txt")
         save.load_game()
         output = sys.stdout.getvalue()
         self.assertIn("Fehler: Datei 'test_falsify_color.txt' scheint fehlerhafte Farben in Zeile 2 zu haben.",output)
@@ -86,7 +86,7 @@ class SaveTest(unittest.TestCase):
         file.close()
         
         game = Game(MODE_TEST)
-        save = Save(game, 'test_falsify_coords.txt')
+        save = Save(game, "test_falsify_coords.txt")
         save.load_game()
         output = sys.stdout.getvalue()
         self.assertIn("Fehler: Datei 'test_falsify_coords.txt' scheint fehlerhafte Koordinaten in Zeile 2 zu haben.",output)
@@ -99,7 +99,7 @@ class SaveTest(unittest.TestCase):
         file.close()
 
         game = Game(MODE_TEST)
-        save = Save(game, 'test_falsify_coords_2.txt')
+        save = Save(game, "test_falsify_coords_2.txt")
         save.load_game()
         output = sys.stdout.getvalue()
         self.assertIn("Fehler: Datei 'test_falsify_coords_2.txt' scheint fehlerhafte Koordinaten zu haben.",output)

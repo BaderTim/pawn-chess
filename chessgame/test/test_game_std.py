@@ -31,13 +31,13 @@ def stub_stdouts(testcase_inst):
 
 
 class StringIO(io.StringIO):
-    def __init__(self, value=''):
-        value = value.encode('utf8', 'backslashreplace').decode('utf8')
+    def __init__(self, value=""):
+        value = value.encode("utf8", "backslashreplace").decode("utf8")
         io.StringIO.__init__(self, value)
 
     def write(self, msg):
         io.StringIO.write(self, msg.encode(
-            'utf8', 'backslashreplace').decode('utf8'))
+            "utf8", "backslashreplace").decode("utf8"))
 
 
 class StdioChessTestCase(unittest.TestCase):

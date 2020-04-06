@@ -7,9 +7,9 @@ from chessgame.main.pawn import Pawn
 
 
 class GameTest(unittest.TestCase):
-    '''
+    """
         Testclass for Game
-    '''
+    """
 
     def test_get_figure_machine_input(self):
         std.stub_stdouts(self)

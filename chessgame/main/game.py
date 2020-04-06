@@ -361,21 +361,21 @@ class Game:
         return None
 
     def update_ai_pawns(self):
-        '''
+        """
         Updates the list of pawns of the AI player
-        '''
+        """
         self.ai_pawns = []
         for figure in self.figures:
             if figure.color == consts.COLOR_BLACK:
                 self.ai_pawns.append(figure)
 
     def ai_moves(self):
-        '''
+        """
         Creates a dictionary containing all currently possible moves and their confidence values
 
         Returns:
             movedict {dict}: All currently possible moves with respective confidence values
-        '''
+        """
         self.update_ai_pawns()
         possible_moves = {}
 
@@ -444,12 +444,12 @@ class Game:
         print(table_output)
 
     def check_last_figure(self, player):
-        '''
+        """
         Checks if the last hit figure was the last remaining figure of the opponent
 
         Args:
             player {String}: currently active player
-        '''
+        """
         counter_figures = 0
         for _, pawn in enumerate(self.figures, 1):
             if player == consts.PLAYER_WHITE:
@@ -465,7 +465,7 @@ class Game:
 
     @staticmethod
     def ai_decide(movelist: list):
-        '''
+        """
         Decides which move will be executed by the ai based on confidence values
 
         Args:
@@ -473,7 +473,7 @@ class Game:
 
         Returns:
             move {list}: list containing the best overall possible move ([POSITION,MOVE,CONFIDENCE])
-        '''
+        """
         max_val = 0
         i = len(movelist) -1
         for move in movelist:
@@ -489,7 +489,7 @@ class Game:
 
     @staticmethod
     def get_best_move(moves):
-        '''
+        """
         Calculates the best possible move for a specific pawn
 
         Args:
@@ -497,7 +497,7 @@ class Game:
 
         Returns:
             best_move {list}: Best possible move for a pawn ([POSITION,MOVE,CONFIDENCE])
-        '''
+        """
         max_key = max(moves[1], key=lambda k: moves[1][k])
         ret_val = [moves[0], max_key, moves[1][max_key]]
         return ret_val
