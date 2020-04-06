@@ -25,7 +25,7 @@ class MainTest(unittest.TestCase):
         self.assertEqual(main.main(), 0)
     
     def test_nav_new(self):
-        std.stub_stdin(self,"n\nm\nx\nx")
+        std.stub_stdin(self,"n\nm\nx\nx\nx")
         std.stub_stdouts(self)
         main.main()
         output = sys.stdout.getvalue()
