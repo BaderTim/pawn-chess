@@ -25,12 +25,12 @@ def main():
         if user_input == consts.ACT_NEW:
             print("\n\n\n # Neues Spiel # \nGegen Computer: ai\nMehrspieler: m\nZurück: b\n")
             game_mode = input("Eingabe: ").lower()
+            if game_mode == consts.ACT_STOP:
+                return 0
             if game_mode in (consts.MODE_AI, consts.MODE_MULTI):
                 Game(game_mode)
                 print("Öffne Hauptmenü...")
-            if game_mode == consts.ACT_STOP:
-                return 0
-            if game_mode != consts.ACT_BACK:
+            elif game_mode != consts.ACT_BACK:
                 print(f"Fehler: '{game_mode}' konnte nicht zugeordnet werden. Bitte versuche es erneut.")
         elif user_input == consts.ACT_LOAD:
             Game(consts.ACT_LOAD)
