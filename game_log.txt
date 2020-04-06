@@ -1,0 +1,328 @@
+---WELCOME TO BAUERNSCHACH---
+
+Neues Spiel: n
+Spiel laden: l
+Beenden: x
+
+Eingabe: n
+
+
+
+ # Neues Spiel #
+Gegen Computer: ai
+Mehrspieler: m
+Zurück: b
+
+Eingabe: m
+
+
+
+Starte mehrspieler Spiel...
+
+Baue Spielfeld auf...
+
+Weiß Beginnt, Schwarz gew...wir werdens sehen ;)
+
+
+
+
+   A  B  C  D  E  F  G  H    
+8  _  _  _  _  _  _  _  _   8
+7  b  b  b  b  b  b  b  b   7
+6  _  _  _  _  _  _  _  _   6
+5  _  _  _  _  _  _  _  _   5
+4  _  _  _  _  _  _  _  _   4
+3  _  _  _  _  _  _  _  _   3
+2  w  w  w  w  w  w  w  w   2
+1  _  _  _  _  _  _  _  _   1
+   A  B  C  D  E  F  G  H    
+
+Spieler Weiß ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)
+Eingabe: B2
+
+Was möchtest du tun?
+2 Felder Vorwärts(m2), Vorwärts(m), Links(l), Rechts(r), Zurück(b)
+Eingabe: m2
+
+
+
+   A  B  C  D  E  F  G  H
+8  _  _  _  _  _  _  _  _   8
+7  b  b  b  b  b  b  b  b   7
+6  _  _  _  _  _  _  _  _   6
+5  _  _  _  _  _  _  _  _   5
+4  _  w  _  _  _  _  _  _   4
+3  _  _  _  _  _  _  _  _   3
+2  w  _  w  w  w  w  w  w   2
+1  _  _  _  _  _  _  _  _   1
+   A  B  C  D  E  F  G  H
+
+Spieler Schwarz ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)
+Eingabe: c7
+
+Was möchtest du tun?
+2 Felder Vorwärts(m2), Vorwärts(m), Links(l), Rechts(r), Zurück(b)
+Eingabe: m2
+
+
+
+   A  B  C  D  E  F  G  H    
+8  _  _  _  _  _  _  _  _   8
+7  b  b  _  b  b  b  b  b   7
+6  _  _  _  _  _  _  _  _   6
+5  _  _  b  _  _  _  _  _   5
+4  _  w  _  _  _  _  _  _   4
+3  _  _  _  _  _  _  _  _   3
+2  w  _  w  w  w  w  w  w   2
+1  _  _  _  _  _  _  _  _   1
+   A  B  C  D  E  F  G  H
+
+Spieler Weiß ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)
+Eingabe: b4
+
+Was möchtest du tun?
+Vorwärts(m), Links(l), Rechts(r), Zurück(b)
+Eingabe: r
+Weißer Bauer schlägt schwarzen Bauer.
+
+
+
+
+   A  B  C  D  E  F  G  H
+8  _  _  _  _  _  _  _  _   8
+7  b  b  _  b  b  b  b  b   7
+6  _  _  _  _  _  _  _  _   6
+5  _  _  w  _  _  _  _  _   5
+4  _  _  _  _  _  _  _  _   4
+3  _  _  _  _  _  _  _  _   3
+2  w  _  w  w  w  w  w  w   2
+1  _  _  _  _  _  _  _  _   1
+   A  B  C  D  E  F  G  H
+
+Spieler Schwarz ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)
+Eingabe: f7
+
+Was möchtest du tun?
+2 Felder Vorwärts(m2), Vorwärts(m), Links(l), Rechts(r), Zurück(b)
+Eingabe: m2
+
+
+
+   A  B  C  D  E  F  G  H
+8  _  _  _  _  _  _  _  _   8
+7  b  b  _  b  b  _  b  b   7
+6  _  _  _  _  _  _  _  _   6
+5  _  _  w  _  _  b  _  _   5
+4  _  _  _  _  _  _  _  _   4
+3  _  _  _  _  _  _  _  _   3
+2  w  _  w  w  w  w  w  w   2
+1  _  _  _  _  _  _  _  _   1
+   A  B  C  D  E  F  G  H
+
+Spieler Weiß ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)
+Eingabe: c5
+
+Was möchtest du tun?
+Vorwärts(m), Links(l), Rechts(r), Zurück(b)
+Eingabe: m
+
+
+
+   A  B  C  D  E  F  G  H
+8  _  _  _  _  _  _  _  _   8
+7  b  b  _  b  b  _  b  b   7
+6  _  _  w  _  _  _  _  _   6
+5  _  _  _  _  _  b  _  _   5
+4  _  _  _  _  _  _  _  _   4
+3  _  _  _  _  _  _  _  _   3
+2  w  _  w  w  w  w  w  w   2
+1  _  _  _  _  _  _  _  _   1
+   A  B  C  D  E  F  G  H
+
+Spieler Schwarz ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)
+Eingabe: d7
+
+Was möchtest du tun?
+2 Felder Vorwärts(m2), Vorwärts(m), Links(l), Rechts(r), Zurück(b)
+Eingabe: l
+Schwarzer Bauer schlägt weißen Bauer.
+
+
+
+
+   A  B  C  D  E  F  G  H
+8  _  _  _  _  _  _  _  _   8
+7  b  b  _  _  b  _  b  b   7
+6  _  _  b  _  _  _  _  _   6
+5  _  _  _  _  _  b  _  _   5
+4  _  _  _  _  _  _  _  _   4
+3  _  _  _  _  _  _  _  _   3
+2  w  _  w  w  w  w  w  w   2
+1  _  _  _  _  _  _  _  _   1
+   A  B  C  D  E  F  G  H
+
+Spieler Weiß ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)
+Eingabe: d2
+
+Was möchtest du tun?
+2 Felder Vorwärts(m2), Vorwärts(m), Links(l), Rechts(r), Zurück(b)
+Eingabe: m
+
+
+
+   A  B  C  D  E  F  G  H
+8  _  _  _  _  _  _  _  _   8
+7  b  b  _  _  b  _  b  b   7
+6  _  _  b  _  _  _  _  _   6
+5  _  _  _  _  _  b  _  _   5
+4  _  _  _  _  _  _  _  _   4
+3  _  _  _  w  _  _  _  _   3
+2  w  _  w  _  w  w  w  w   2
+1  _  _  _  _  _  _  _  _   1
+   A  B  C  D  E  F  G  H
+
+Spieler Schwarz ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)
+Eingabe: f5
+
+Was möchtest du tun?
+Vorwärts(m), Links(l), Rechts(r), Zurück(b)
+Eingabe: m
+
+
+
+   A  B  C  D  E  F  G  H
+8  _  _  _  _  _  _  _  _   8
+7  b  b  _  _  b  _  b  b   7
+6  _  _  b  _  _  _  _  _   6
+5  _  _  _  _  _  _  _  _   5
+4  _  _  _  _  _  b  _  _   4
+3  _  _  _  w  _  _  _  _   3
+2  w  _  w  _  w  w  w  w   2
+1  _  _  _  _  _  _  _  _   1
+   A  B  C  D  E  F  G  H
+
+Spieler Weiß ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)
+Eingabe: d3
+
+Was möchtest du tun?
+Vorwärts(m), Links(l), Rechts(r), Zurück(b)
+Eingabe: m
+
+
+
+   A  B  C  D  E  F  G  H
+8  _  _  _  _  _  _  _  _   8
+7  b  b  _  _  b  _  b  b   7
+6  _  _  b  _  _  _  _  _   6
+5  _  _  _  _  _  _  _  _   5
+4  _  _  _  w  _  b  _  _   4
+3  _  _  _  _  _  _  _  _   3
+2  w  _  w  _  w  w  w  w   2
+1  _  _  _  _  _  _  _  _   1
+   A  B  C  D  E  F  G  H
+
+Spieler Schwarz ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)
+Eingabe: f4
+
+Was möchtest du tun?
+Vorwärts(m), Links(l), Rechts(r), Zurück(b)
+Eingabe: m
+
+
+
+   A  B  C  D  E  F  G  H
+8  _  _  _  _  _  _  _  _   8
+7  b  b  _  _  b  _  b  b   7
+6  _  _  b  _  _  _  _  _   6
+5  _  _  _  _  _  _  _  _   5
+4  _  _  _  w  _  _  _  _   4
+3  _  _  _  _  _  b  _  _   3
+2  w  _  w  _  w  w  w  w   2
+1  _  _  _  _  _  _  _  _   1
+   A  B  C  D  E  F  G  H
+
+Spieler Weiß ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)
+Eingabe: d4
+
+Was möchtest du tun?
+Vorwärts(m), Links(l), Rechts(r), Zurück(b)
+Eingabe: m
+
+
+
+   A  B  C  D  E  F  G  H
+8  _  _  _  _  _  _  _  _   8
+7  b  b  _  _  b  _  b  b   7
+6  _  _  b  _  _  _  _  _   6
+5  _  _  _  w  _  _  _  _   5
+4  _  _  _  _  _  _  _  _   4
+3  _  _  _  _  _  b  _  _   3
+2  w  _  w  _  w  w  w  w   2
+1  _  _  _  _  _  _  _  _   1
+   A  B  C  D  E  F  G  H
+
+Spieler Schwarz ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)
+Eingabe: f3
+
+Was möchtest du tun?
+Vorwärts(m), Links(l), Rechts(r), Zurück(b)
+Eingabe: r
+Schwarzer Bauer schlägt weißen Bauer.
+
+
+
+
+   A  B  C  D  E  F  G  H
+8  _  _  _  _  _  _  _  _   8
+7  b  b  _  _  b  _  b  b   7
+6  _  _  b  _  _  _  _  _   6
+5  _  _  _  w  _  _  _  _   5
+4  _  _  _  _  _  _  _  _   4
+3  _  _  _  _  _  _  _  _   3
+2  w  _  w  _  w  w  b  w   2
+1  _  _  _  _  _  _  _  _   1
+   A  B  C  D  E  F  G  H
+
+Spieler Weiß ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)
+Eingabe: d5
+
+Was möchtest du tun?
+Vorwärts(m), Links(l), Rechts(r), Zurück(b)
+Eingabe: l
+Weißer Bauer schlägt schwarzen Bauer.
+
+
+
+
+   A  B  C  D  E  F  G  H
+8  _  _  _  _  _  _  _  _   8
+7  b  b  _  _  b  _  b  b   7
+6  _  _  w  _  _  _  _  _   6
+5  _  _  _  _  _  _  _  _   5
+4  _  _  _  _  _  _  _  _   4
+3  _  _  _  _  _  _  _  _   3
+2  w  _  w  _  w  w  b  w   2
+1  _  _  _  _  _  _  _  _   1
+   A  B  C  D  E  F  G  H
+
+Spieler Schwarz ist am Zug. (Auswahl z.B. A2, Beenden x, Speichern s)
+Eingabe: g2
+
+Was möchtest du tun?
+Vorwärts(m), Links(l), Rechts(r), Zurück(b)
+Eingabe: m
+
+
+
+   A  B  C  D  E  F  G  H
+8  _  _  _  _  _  _  _  _   8
+7  b  b  _  _  b  _  b  b   7
+6  _  _  w  _  _  _  _  _   6
+5  _  _  _  _  _  _  _  _   5
+4  _  _  _  _  _  _  _  _   4
+3  _  _  _  _  _  _  _  _   3
+2  w  _  w  _  w  w  _  w   2
+1  _  _  _  _  _  _  b  _   1
+   A  B  C  D  E  F  G  H
+Spieler Schwarz hat gewonnen!
+Öffne Hauptmenü...
