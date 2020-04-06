@@ -23,7 +23,7 @@ def main():
         print("Neues Spiel: n\nSpiel laden: l\nBeenden: x\n")
         user_input = input("Eingabe: ").lower()
         if user_input == consts.ACT_NEW:
-            print("\n\n\n # Neues Spiel # \nGegen Computer: ki\nMehrspieler: m\nZurück: b\n")
+            print("\n\n\n # Neues Spiel # \nGegen Computer: ai\nMehrspieler: m\nZurück: b\n")
             game_mode = input("Eingabe: ").lower()
             if game_mode in (consts.MODE_AI, consts.MODE_MULTI):
                 Game(game_mode)
