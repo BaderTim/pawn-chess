@@ -10,6 +10,7 @@ This Project was the final exam of the Python lecture at the DHBW Ravensburg in 
 - User interface is required (console UI works too)
 - Input and output via console
 - Mode(s): Multiplayer, (bonus: Computer opponent with difficulty levels)
+- Code quality is important
 
 ## How to play
 - Clone repository
