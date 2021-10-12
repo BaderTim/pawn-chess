@@ -1,5 +1,5 @@
 # pawn-chess (Bauernschach)
-This Project was the final exam of the Python lecture at DHBW Ravensburg.
+This Project was the final exam of the Python lecture at the DHBW Ravensburg.
   
   
 ## Task
