@@ -1,4 +1,4 @@
-# pawn chess (Bauernschach)
+# pawn-chess (Bauernschach)
 This Project was the final exam of the Python lecture at DHBW Ravensburg.
   
   
